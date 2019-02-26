@@ -42,8 +42,8 @@ GUICtrlSetBkColor(-1, 0xA0A0A0)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-Global $Ask_ex_open, $Txt_ex_close, $login
-
+Global $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
+$Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
 $Ask_ex_open = 'Czy chcesz otworzyc Excel - "Kotwiczka"?'
 $Txt_ex_close = 'Excel - "Kotwiczka" nie jest otwarty'
 
@@ -99,45 +99,56 @@ WEnd
 Func Login_user()
 
 	Global $Sciezka_ex, $haslo_moje, $haslo_tomek
-	Local $Sciezka_cz1, $Sciezka_cz2, $Txt_login, $login_wrong
+	Local $Sciezka_cz1, $Sciezka_cz2, $Txt_login, $login_wrong, $login_restart
 	$haslo_moje1 = "no"
 	$haslo_moje2 = "danditkaczuk"
 	$haslo_tomek = "123"
 	$haslo_Ola = "ola"
 	$Txt_login = "pc_user_login"
-	$login = InputBox("Tworzenie kotwiczki z Darkiem :D","Prosze, wpisz swój 10 literowy login",$Txt_login)
+	$login = InputBox("Tworzenie kotwiczki z Darkiem :D", "Prosze, wpisz swój 10 literowy login", $Txt_login)
 	$Sciezka_cz1 = 'C:\Users\'
 	$Sciezka_cz2 = '\Desktop\Program Darka do tworzenia kotwiczek\Kotwiczka.xlsx'
+
 	If $login = $haslo_moje1 Or $login = $haslo_moje2 Then
 		$login = "glitkaczda"
 	ElseIf $login = $haslo_tomek Then
 		$login = "glinoconto"
-		MsgBox(0,$Program_name,"Czesc Tomasz ;D ",1)
+		MsgBox(0, $Program_name, "Czesc Tomasz ;D ", 1)
 	ElseIf $login = $haslo_Ola Then
 		$login = "glitkaczda"
-		MsgBox(0,$Program_name,"Czesc kochanie ;*",5)
+		MsgBox(0, $Program_name, "Czesc kochanie ;*", 5)
+	ElseIf $login = $Txt_login Then
+		MsgBox(0, $Program_name, "Nie wpisales hasla", 2)
+		$login_wrong = 1
 	ElseIf StringLen($login) <> 10 Then
-		MsgBox(0,$Program_name,"Nie posiadasz uprawnien do korzystania z programu")
+		MsgBox(0, $Program_name, "Wpisales zly login lub chcesz wyjsc")
 		$login_wrong = 1
 	EndIf
-	If $login_wrong = 1 Then Login_user()
 
+	If $login_wrong = 1 Then
+		$login_restart = MsgBox(4, $Program_name, "Chcesz sprobowac jeszcze raz?")
+		If $login_restart = 6 Then
+			Login_user()
+		Else
+			Exit
+		EndIf
+	EndIf
 	$Sciezka_ex = $Sciezka_cz1 & $login & $Sciezka_cz2
 
-EndFunc
+EndFunc   ;==>Login_user
 
 Func Activate_program_name()
 
 	WinActivate($Program_name)
 
-EndFunc
+EndFunc   ;==>Activate_program_name
 
 Func Activate_program_name_err()
 
-	MsgBox(0,$Program_name,"Chyba cos poszlo nie tak",3)
+	MsgBox(0, $Program_name, "Chyba cos poszlo nie tak", 3)
 	Activate_program_name()
 
-EndFunc
+EndFunc   ;==>Activate_program_name_err
 
 Func Bye()
 
@@ -158,8 +169,8 @@ Func Excel_Open()
 		Send("!{o 2}")
 		Send($Sciezka_ex)
 		Send("{Enter}")
-		If WinWaitActive("Kotwiczka","",15) Then
-			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 7)
+		If WinWaitActive("Kotwiczka", "", 15) Then
+			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 5)
 			Activate_program_name()
 		Else
 			Activate_program_name_err()
@@ -172,7 +183,7 @@ Func Excel_Close()
 
 	If WinExists("Kotwiczka") Then
 		WinActivate("Kotwiczka")
-		WinWaitActive("Kotwiczka","",20)
+		WinWaitActive("Kotwiczka", "", 20)
 		WinClose("Kotwiczka")
 		Sleep(500)
 		Send("{n}")
@@ -227,39 +238,41 @@ Func Tworzenie_kotwicy()
 
 			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.")
 			$pis = $Button_x ;~ Ilosc kart na obwodówce
-			$t2 = (7000 * ((0.3 * $pis) + 1)) ;~ t2 - czas ukazywania sie wszystkich wlasciwosci i wlasciwosci strony w oknie znaku wypelniacza po ich zafajkowaniu
 			$t3 = (3000 * ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
-			$t4 = (15000 * ((0.6 * $pis) + 1)) ;~ t4 - czas ukazywania sie wszystkich wlasciwosci i wlasciwosci strony w oknie znaku wypelniacza po ich zafajkowaniu
 			$tc = 2000 ;~ tc - copy time
 			$ta = 1000 ;~ ta - approve time
 
-	;~ 1. Skopiowanie nazw pelnych do excela
-			Local $Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
+;~ 1. Skopiowanie nazw pelnych do excela
 			WinActivate($Epl)
 			Send("^{a}")
 			Send("!{t}")
 			Send("{o}")
-			WinWaitActive($Epl_okno_kotwiczki,"",60)
-			If WinExists($Epl_okno_kotwiczki) Then
+			WinWaitActive($Epl_okno_kotwiczki, "", 60)
+			If WinActive($Epl_okno_kotwiczki) Then
+				WinActivate($Epl_okno_kotwiczki)
+				WinWaitActive($Epl_okno_kotwiczki)
 				Sleep($ta)
-				Send("!{p}{o}{w}")
-				Sleep($t4)
-				Send("!{k}")
-				Send("{w}")
+				Global $Ustaw_Zmienna = 0
+				Global $Ustaw_Aktualna = 1
+				Global $Ustaw_Wl_strony = 1
+				Zaznaczanie()
+				Sleep(100)
+				WinActivate($Epl_okno_kotwiczki)
 				Send("!{k}")
 				Send("{TAB}")
-				Send("^+{RIGHT}")
+				Send("^{a}")
 				Send("^+{F10}")
 				Send("{p}")
 				Sleep($t3)
-				Send("!{p}{o}")
-				Sleep($t4)
+				$Ustaw_Zmienna = 1
+				$Ustaw_Aktualna = 0
+				$Ustaw_Wl_strony = 1
+				Zaznaczanie()
 				Send("!{k}")
 				Send("{TAB}")
 				Send("^{c}")
 
-
-		;~ 2. Usuniecie nazw pelnych w excelu
+;~ 2. Usuniecie nazw pelnych w excelu
 				WinActivate("Kotwiczka")
 				WinWaitActive("Kotwiczka")
 				Send("^{HOME}")
@@ -271,7 +284,7 @@ Func Tworzenie_kotwicy()
 				Send("^{c}")
 				Sleep($tc)
 
-		;~ 3. Umieszczenie nazw wyswietlanych i kopiowanie wlasciwosci
+;~ 3. Umieszczenie nazw wyswietlanych i kopiowanie wlasciwosci
 				WinActivate($Epl_okno_kotwiczki)
 				WinWaitActive($Epl_okno_kotwiczki)
 				Send("{RIGHT}")
@@ -284,7 +297,7 @@ Func Tworzenie_kotwicy()
 				Send("^{c}")
 				Sleep($tc)
 
-		;~ 4. Zamiana Wlasciwosci na prawidlowe w excelu
+;~ 4. Zamiana Wlasciwosci na prawidlowe w excelu
 				WinActivate("Kotwiczka")
 				WinWaitActive("Kotwiczka")
 				Send("{F5}")
@@ -298,7 +311,7 @@ Func Tworzenie_kotwicy()
 				Send("^{c}")
 				Sleep($tc)
 
-		;~ 5. Stworzenie nowego obiektu wlasciwosci i przypo¿¹dkowanie prawidlowych zmiennych
+;~ 5. Stworzenie nowego obiektu wlasciwosci i przypo¿¹dkowanie prawidlowych zmiennych
 				WinActivate($Epl_okno_kotwiczki)
 				WinWaitActive($Epl_okno_kotwiczki)
 				Send("^+{F10}")
@@ -306,7 +319,7 @@ Func Tworzenie_kotwicy()
 				Send("^{v}")
 				Sleep($tc)
 
-		;~ 6. Nazwanie kotwiczki
+;~ 6. Nazwanie kotwiczki
 				Send("{TAB}")
 				Send("!{n}")
 				Send("PREPlANNING")
@@ -315,14 +328,14 @@ Func Tworzenie_kotwicy()
 
 				MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 10)
 
-				$Do_ex_reset = MsgBox(4,$Program_name,"Czy chcesz zresetowac excela?",5)
+				$Do_ex_reset = MsgBox(4, $Program_name, "Czy chcesz zresetowac excela?", 5)
 				If $Do_ex_reset <> 7 Then Excel_Reset()
 				Activate_program_name()
 			Else
 				Activate_program_name_err()
 			EndIf
 		Else
-			MsgBox(1,$Program_name,"Program " & $Epl & " nie zostal wlaczony." & @CRLF & "Wlacz " & $Epl & "kliknij na strone i sprobuj ponownie")
+			MsgBox(1, $Program_name, "Program " & $Epl & " nie zostal wlaczony." & @CRLF & "Wlacz " & $Epl & "kliknij na strone i sprobuj ponownie")
 		EndIf
 	Else
 		MsgBox(0, $Program_name, $Txt_ex_close)
@@ -336,6 +349,43 @@ Func Tworzenie_kotwicy()
 
 EndFunc   ;==>Tworzenie_kotwicy
 
+Func Zaznaczanie()
+	Local $Kategoria = 'ComboBox2'
+	Local $Kategoria_wartosc = 'Wszystkie kategorie'
+	Local $Button_Zmienna = 2006
+	Local $Button_Aktualna = 2065
+	Local $Button_Wl_strony = 2005
+	If $Ustaw_Zmienna = 1 Then
+		$Status_zmienna = 'Check'
+	ElseIf $Ustaw_Zmienna = 0 Then
+		$Status_zmienna = 'UnCheck'
+	EndIf
+	If $Ustaw_Aktualna = 1 Then
+		$Status_aktualna = 'Check'
+	ElseIf $Ustaw_Aktualna = 0 Then
+		$Status_aktualna = 'UnCheck'
+	EndIf
+	If $Ustaw_Wl_strony = 1 Then
+		$Status_wl_strony = 'Check'
+	ElseIf $Ustaw_Wl_strony = 0 Then
+		$Status_wl_strony = 'UnCheck'
+	EndIf
+	Do
+		ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "SelectString", $Kategoria_wartosc)
+		Sleep(500)
+		ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, $Status_zmienna)
+		ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, $Status_aktualna)
+		ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, $Status_wl_strony)
+		Local $k1, $k2, $k3, $k4
+		$k1 = ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "GetCurrentSelection", "")
+		$k2 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, 'IsChecked')
+		$k3 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, 'IsChecked')
+		$k4 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, 'IsChecked')
+		Sleep(2000)
+	Until $k1 = $Kategoria_wartosc And $k2 = $Ustaw_Zmienna And $k3 = $Ustaw_Aktualna And $k4 = $Ustaw_Wl_strony
+
+EndFunc   ;==>Zaznaczanie
+
 Func Process_stop()
 	Send("{BREAK}")
-EndFunc
+EndFunc   ;==>Process_stop
