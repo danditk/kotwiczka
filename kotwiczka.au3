@@ -290,7 +290,7 @@ Func Excel_Reset()
 		Sleep(100)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
 		Sleep(100)
-		MsgBox(0, "Excel info", "Excel czysty", 1)
+		If GUICtrlRead($Check_Reset) = 4 Then MsgBox(0, "Excel info", "Excel czysty", 2)
 		WinActivate($Program_name)
 	Else
 		MsgBox(0, $Program_name, $Txt_ex_close)
@@ -305,12 +305,13 @@ EndFunc   ;==>Excel_Reset
 
 Func Tworzenie_kotwicy()
 
+
 	Local $Do_ex_reset, $Handle_Epl_okno_kotwiczki, $Handle_Excel, $Przez_Excel, $Przez_Epl_okno_kotwiczki
 	If WinExists($Txt_Excel_name) Then
 		If WinExists($Epl) Then
 			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.", 5)
 			$tc = 2000 ;~ tc - copy time
-			$ta = 250 ;~ ta - approve timen
+			$ta = 1000 ;~ ta - approve timen
 			$Przez_Epl_okno_kotwiczki = 80
 			$Przez_Excel = 80
 
@@ -344,11 +345,16 @@ Func Tworzenie_kotwicy()
 				$Epl_okno_kotwiczki_poz = WinGetPos($Epl_okno_kotwiczki)
 				WinActivate($Txt_Excel_name)
 				WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_okno_kotwiczki_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3], 10)
-				For $i = 255 to $Przez_Excel Step -1
+				For $i = 255 to 0 Step -1
 					WinSetTrans($Handle_Excel, "", $i)
 					Sleep(10)
 				Next
-				WinSetTrans($Handle_Excel, "", $Przez_Excel)
+				WinSetTrans($Handle_Excel, "", 0)
+				Global $Ustaw_Zmienna = 0
+				Global $Ustaw_Aktualna = 1
+				Global $Ustaw_Wl_strony = 1
+				Zaznaczanie()
+				Sleep(100)
 				WinActivate($Epl_okno_kotwiczki)
 				$Handle_Epl_okno_kotwiczki = WinGetHandle($Epl_okno_kotwiczki)
 				For $i = 255 to $Przez_Epl_okno_kotwiczki Step -1
@@ -357,6 +363,7 @@ Func Tworzenie_kotwicy()
 				Next
 				WinSetTrans($Handle_Epl_okno_kotwiczki, "", $Przez_Epl_okno_kotwiczki)
 				WinSetState($Txt_Excel_name, '', @SW_HIDE)
+				WinSetTrans($Handle_Excel, "", $Przez_Excel)
 				WinActivate($Epl_okno_kotwiczki)
 				AutoItSetOption('MouseCoordMode', 0)
 				MouseClick('primary', 100, 70, 1, 0)
@@ -367,11 +374,6 @@ Func Tworzenie_kotwicy()
 				Sleep(100)
 				MouseClick('primary', 90, 290, 1, 0)
 				AutoItSetOption('MouseCoordMode', 1)
-				Global $Ustaw_Zmienna = 0
-				Global $Ustaw_Aktualna = 1
-				Global $Ustaw_Wl_strony = 1
-				Zaznaczanie()
-				Sleep(100)
 				WinActivate($Epl_okno_kotwiczki)
 				Send("!{k}")
 				Send("{TAB}")
@@ -477,8 +479,12 @@ Func Tworzenie_kotwicy()
 				WinSetTrans($Handle_Excel, "", 255)
 				WinSetOnTop($Epl_okno_kotwiczki, '', 0)
 				MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 3)
-				Excel_Do_Reset()
-				If $licznik <> $licznik_x Then Excel_Reset()
+				If GUICtrlRead($Check_Reset) = 1 Then
+					Excel_Reset()
+				Else
+					Excel_Do_Reset()
+					If $licznik <> $licznik_x Then Excel_Reset()
+				EndIf
 				WinActivate($Program_name)
 			Else
 				Activate_program_name_err()
