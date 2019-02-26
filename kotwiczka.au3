@@ -8,27 +8,8 @@
 #include <Excel.au3>
 #include <Array.au3>
 
-;~ 1. Zmienne Main GUI
-Global $Program_name, $Okno_Tworzenie_kotwiczki, $Text_exce, $Button_Start, $Button_Start_Many, $nMsg
-Global $Button_Excel_Open, $Button_Excel_Reset, $Button_Excel_Close, $Pic1, $Meny_how, $Check_Reset, $Check_Zamknij
-Global $Check_Speed, $Button_Up, $Button_Down
-$Program_name = "Tworzenie kotwiczki z Darkiem :D"
 
-Global $Loging_Hendle, $Txt_Excel_name, $Excel_full_name, $Sciezka_excela, $Program_Excel_open, $Plik_Excel_open
-Global $Epl, $Epl_poz, $licence, $Epl_script, $Epl_okno_kotwiczki_poz, $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
-Global $Liczba_Meny_how, $i_many, $licznik, $licznik_x, $Date, $Handle_Excel
-Global $Ustaw_Zmienna, $Ustaw_Aktualna, $Ustaw_Wl_strony
-
-$Epl_script = '404=%5056*7883846830956838456341181856704($667&#cr$45=)+56]79]11000110'
-$Epl = 'EPLAN'
-$Txt_Excel_name = 'Kotwiczka'
-$Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
-$Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
-$Txt_ex_close = 'Excel - ' & $Txt_Excel_name & ' nie jest otwarty.'
-$Epl_poz = WinGetPos($Epl)
-HotKeySet('+!e', 'HotKey_Exit')
-Global $Program_name = "Tworzenie kotwiczki z Darkiem :D"
-
+Initiation()
 ;~ Loging()
 ;~ GUIDelete($Loging_Hendle)
 ;~ Licence()
@@ -210,9 +191,6 @@ Func Tworzenie_kotwicy()
 				Else
 					WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_okno_kotwiczki_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3])
 				EndIf
-;~ 				Global $Ustaw_Zmienna = 0
-;~ 				Global $Ustaw_Aktualna = 1
-;~ 				Global $Ustaw_Wl_strony = 1
 				WinActivate($Epl_okno_kotwiczki)
 				Zaznaczanie()
 				Sleep(100)
@@ -244,9 +222,6 @@ Func Tworzenie_kotwicy()
 				Send("^{a}")
 				Send("^+{F10}")
 				Send("{p}")
-;~ 				$Ustaw_Zmienna = 1
-;~ 				$Ustaw_Aktualna = 0
-;~ 				$Ustaw_Wl_strony = 1
 				Zaznaczanie(1, 0, 1)
 				WinActivate($Epl_okno_kotwiczki)
 				Send("!{k}")
@@ -304,6 +279,7 @@ Func Tworzenie_kotwicy()
 				Sleep(100)
 				ControlSend('Go To', '', 'EDTBX1', '{Enter}')
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{RIGHT}')
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{LEFT}')
 				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{v}')
@@ -565,6 +541,11 @@ Func Excel_Close_Button()
 
 EndFunc   ;==>Excel_Close_Button
 
+
+
+
+
+
 Func Excel_Do_Reset()
 
 	Global $licznik = 1, $licznik_x = 3
@@ -614,11 +595,11 @@ Func Excel_Reset()
 		WinActivate($Txt_Excel_name)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
 		Sleep(100)
-		For $i = 1 To 5
+		For $i = 1 To 3
 			ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{z}')
-			Sleep(1000)
+			Sleep(800)
 		Next
-		Sleep(100)
+		Sleep(1000)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
 		Sleep(100)
 		If GUICtrlRead($Check_Reset) = 4 Then MsgBox(0, "Excel info", "Excel czysty", 2)
@@ -713,6 +694,142 @@ Func Zaznaczanie($Ustaw_Zmienna = 0, $Ustaw_Aktualna = 1, $Ustaw_Wl_strony = 1)
 
 EndFunc   ;==>Zaznaczanie
 
+
+
+Func MSGBox_ok($Txt_in_MSGBox_ok, $Time_up_MSGBox_ok, $Txt_Button_MSGBox_ok = 'OK', $Czcia_MSGBox_ok = 10)
+
+	#Region ### START Koda GUI section ### Form=C:\Users\glitkaczda\Desktop\Programowanie\gui_tworzenie_kotwiczk_ok_1.2i.kxf
+	Global $Okno_Tworzenie_kotwiczki_MSGBox_ok = GUICreate($Program_namec & ' INFO', 339, 150)
+	GUISetFont(8, 400, 0, "Showcard Gothic")
+	GUISetBkColor(0x313131)
+	GUICtrlCreateLabel($Txt_in_MSGBox_ok, 18, 16, 302, 58, BitOR($SS_CENTER, $SS_NOPREFIX))
+	GUICtrlSetFont(-1, $Czcia_MSGBox_ok, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0x569557)
+	Global $Button_Ok = GUICtrlCreateButton($Txt_Button_MSGBox_ok, 124, 96, 91, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
+
+	Local $SEC_A, $SEC_S = @SEC, $SEC_E
+	Do
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				Return
+			Case $Button_Ok
+				Return
+
+		EndSwitch
+		$SEC_A = @SEC
+		$SEC_E = $SEC_A - $SEC_S
+	Until $SEC_E >= $Time_up_MSGBox_ok
+
+EndFunc   ;==>MSGBox_ok
+
+Func MSGBox_KO()
+
+	#Region ### START Koda GUI section ### Form=c:\users\glitkaczda\desktop\programowanie\gui_tworzenie_kotwiczk_ok_big1.1i.kxf
+	Global $Okno_Tworzenie_kotwiczki = GUICreate("Program_name" & ' INFO', 416, 172)
+	GUISetFont(8, 400, 0, "Showcard Gothic")
+	GUISetBkColor(0x313131)
+	GUICtrlCreateLabel("$variable_Text_Box", 16, 16, 382, 90, BitOR($SS_CENTER, $SS_NOPREFIX))
+	GUICtrlSetFont(-1, 18, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0x569557)
+	Global $Button_Ok = GUICtrlCreateButton("Ok", 160, 120, 91, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				Exit
+
+		EndSwitch
+	WEnd
+
+
+
+EndFunc   ;==>MSGBox_KO
+
+Func MSGBox_yesno()
+
+	#Region ### START Koda GUI section ### Form=c:\users\glitkaczda\desktop\programowanie\gui_tworzenie_kotwiczk_yes_no_1.1i.kxf
+	Global $Okno_Tworzenie_kotwiczki_2 = GUICreate($Program_name & ' ASK', 326, 169)
+	GUISetFont(8, 400, 0, "Showcard Gothic")
+	GUISetBkColor(0x313131)
+	GUICtrlCreateLabel("$variable_Text_Box", 19, 16, 286, 82, BitOR($SS_CENTER, $SS_NOPREFIX))
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0x569557)
+	Global $Button_YES = GUICtrlCreateButton("YES", 33, 120, 123, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	Global $Button_NO = GUICtrlCreateButton("NO", 169, 120, 123, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				Exit
+
+		EndSwitch
+	WEnd
+
+
+EndFunc   ;==>MSGBox_yesno
+
+Func MSGBox_NOYES()
+
+	#Region ### START Koda GUI section ### Form=c:\users\glitkaczda\desktop\programowanie\gui_tworzenie_kotwiczk_yes_no_big1.1i.kxf
+	Global $Okno_Tworzenie_kotwiczki_3 = GUICreate("Program_name" & ' ASK', 416, 177)
+	GUISetFont(8, 400, 0, "Showcard Gothic")
+	GUISetBkColor(0x313131)
+	GUICtrlCreateLabel("$variable_Text_Box", 24, 16, 366, 106, BitOR($SS_CENTER, $SS_NOPREFIX))
+	GUICtrlSetFont(-1, 18, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0x569557)
+	Global $Button_YES = GUICtrlCreateButton("YES", 66, 128, 123, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	Global $Button_NO = GUICtrlCreateButton("NO", 226, 128, 123, 33)
+	GUICtrlSetFont(-1, 10, 800, 0, "Showcard Gothic")
+	GUICtrlSetColor(-1, 0xFFFFFF)
+	GUICtrlSetBkColor(-1, 0x569557)
+	GUICtrlSetCursor(-1, 0)
+	GUISetState(@SW_SHOW)
+	#EndRegion ### END Koda GUI section ###
+
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				Exit
+
+		EndSwitch
+	WEnd
+
+
+EndFunc   ;==>MSGBox_NOYES
+
+
+
+
 Func Licence()
 	Global $licence[6] = [@MDAY, StringMid($Epl_script, 20, 2), @MON, StringMid($Epl_script, 32, 2), @YEAR, StringMid($Epl_script, 36, 2)]
 	If $licence[0] <= $licence[1] And $licence[2] <= $licence[3] And Int(StringRight($licence[4], 2)) <= $licence[5] Then
@@ -773,3 +890,41 @@ Func Date()
 			'May', 'June', 'July', 'August', _
 			'September', 'October', 'November', 'December']
 EndFunc   ;==>Date
+
+
+Func Initiation()
+
+;~ 1. Zmienne Main GUI
+	Global $Program_name, $Okno_Tworzenie_kotwiczki, $Text_exce, $Button_Start, $Button_Start_Many, $nMsg
+	Global $Button_Excel_Open, $Button_Excel_Reset, $Button_Excel_Close, $Pic1, $Meny_how, $Check_Reset, $Check_Zamknij
+	Global $Check_Speed, $Button_Up, $Button_Down
+	$Program_name = "Tworzenie kotwiczki z Darkiem :D"
+
+;~ 2. Zmienne MSGBox_ok GUI
+	Global $Handle_MSGBox_ok = WinGetHandle($Program_name & ' INFO')
+
+;~ 3. Zmienne MSGBox_KO GUI
+	Global $Handle_MSGBox_KO = WinGetHandle($Program_name & ' INFO')
+
+;~ 4. Zmienne MSGBox_yesno GUI
+	Global $Handle_MSGBox_yesno = WinGetHandle($Program_name & ' ASK')
+
+;~ 5. Zmienne MSGBox_NOYES GUI
+	Global $Handle_MSGBox_NOYES = WinGetHandle($Program_name & ' ASK')
+
+	Global $Loging_Hendle, $Txt_Excel_name, $Excel_full_name, $Sciezka_excela, $Program_Excel_open, $Plik_Excel_open
+	Global $Epl, $Epl_poz, $licence, $Epl_script, $Epl_okno_kotwiczki_poz, $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
+	Global $Liczba_Meny_how, $i_many, $licznik, $licznik_x, $Date, $Handle_Excel
+	Global $Ustaw_Zmienna, $Ustaw_Aktualna, $Ustaw_Wl_strony
+
+	$Epl_script = '404=%5056*7883846830956838456341181856704($667&#cr$45=)+56]79]11000110'
+	$Epl = 'EPLAN'
+	$Txt_Excel_name = 'Kotwiczka'
+	$Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
+	$Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
+	$Txt_ex_close = 'Excel - ' & $Txt_Excel_name & ' nie jest otwarty.'
+	$Epl_poz = WinGetPos($Epl)
+	HotKeySet('+!e', 'HotKey_Exit')
+	Global $Program_name = "Tworzenie kotwiczki z Darkiem :D"
+
+EndFunc   ;==>Initiation
