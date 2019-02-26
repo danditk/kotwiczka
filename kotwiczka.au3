@@ -42,12 +42,15 @@ GUICtrlSetBkColor(-1, 0xA0A0A0)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-Global $login_cz1, $login_cz2, $haslo, $Sciezka, $Sciezka_cz1
-Global $Ask_ex_open = 'Czy chcesz otworzyc Excel - "Kotwiczka"?'
-Global $Txt_ex_close = 'Excel - "Kotwiczka" nie jest otwarty'
+Global $Ask_ex_open, $Txt_ex_close, $login
 
+$Ask_ex_open = 'Czy chcesz otworzyc Excel - "Kotwiczka"?'
+$Txt_ex_close = 'Excel - "Kotwiczka" nie jest otwarty'
+
+Login_user()
 Excel_Open()
 Activate_program_name()
+
 
 While 1
 	$nMsg = GUIGetMsg()
@@ -93,6 +96,25 @@ While 1
 
 WEnd
 
+Func Login_user()
+
+	Global $Sciezka_ex, $haslo_moje, $haslo_tomek
+	Local $Sciezka_cz1, $Sciezka_cz2
+	$haslo_moje = "no"
+	$haslo_tomek = "123"
+	$login = InputBox("Tworzenie kotwiczki z Darkiem :D","Prosze, wpisz swój login","user_login")
+	$Sciezka_cz1 = 'C:\Users\'
+	$Sciezka_cz2 = '\Desktop\Program Darka do tworzenia kotwiczek\Kotwiczka.xlsx'
+
+	If $login = $haslo_moje Then
+		$login = "glitkaczda"
+	ElseIf $login = $haslo_tomek Then
+		$login = "glinoconto"
+	EndIf
+	$Sciezka_ex = $Sciezka_cz1 & $login & $Sciezka_cz2
+
+EndFunc
+
 Func Activate_program_name()
 
 	WinActivate($Program_name)
@@ -123,9 +145,9 @@ Func Excel_Open()
 		WinWaitActive("Excel")
 		Send("!{o}")
 		Send("!{o 2}")
-		Send("C:\Users\glitkaczda\Desktop\Program Darka do tworzenia kotwiczek\Kotwiczka.xlsx")
+		Send($Sciezka_ex)
 		Send("{Enter}")
-		If WinWaitActive("Kotwiczka","",25) Then
+		If WinWaitActive("Kotwiczka","",15) Then
 			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 7)
 			Activate_program_name()
 		Else
@@ -300,8 +322,6 @@ Func Tworzenie_kotwicy()
 			MsgBox(0, $Program_name, "To moj pierwszy program." & @CRLF & "Nie posiadam jeszcze dostatecznej wiedzy, by zrobic to bez Excela")
 		EndIf
 	EndIf
-
-
 
 EndFunc   ;==>Tworzenie_kotwicy
 
