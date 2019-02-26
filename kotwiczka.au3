@@ -1,45 +1,77 @@
 #include <ButtonConstants.au3>
-#include <GUIConstantsEx.au3>
-#include <StaticConstants.au3>
+#include <EditConstants.au3>
 #include <WindowsConstants.au3>
 #include <AutoItConstants.au3>
+#include <GUIConstantsEx.au3>
+#include <StaticConstants.au3>
 #include <MsgBoxConstants.au3>
 #include <Excel.au3>
 
-#Region ### START Koda GUI section ### Form=
+#Region ### START Koda GUI section ### Form=c:\users\glitkaczda\desktop\programowanie\gui_okno_tworzenie_kotwiczk_1.2i.kxf
 Global $Program_name = "Tworzenie kotwiczki z Darkiem :D"
-Global $Okno_Tworzenie_kotwiczki = GUICreate($Program_name, 381, 192, 192, 124)
-Global $Tekst_Ilosc_kart = GUICtrlCreateLabel("Ilosc kart na obwodowce", 24, 16, 214, 26, $SS_CENTER)
-GUICtrlSetFont(-1, 12, 800, 0, "MS Sans Serif")
-Global $Text_excel = GUICtrlCreateLabel("Excel", 264, 16, 94, 26, $SS_CENTER)
-GUICtrlSetFont(-1, 12, 800, 0, "MS Sans Serif")
-Global $Button_1 = GUICtrlCreateButton("1", 24, 56, 43, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_2 = GUICtrlCreateButton("2", 80, 56, 43, 33) ;)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_4 = GUICtrlCreateButton("4", 192, 56, 43, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_3 = GUICtrlCreateButton("3", 136, 56, 43, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_Excel_Open = GUICtrlCreateButton("Open", 264, 56, 91, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_Excel_Reset = GUICtrlCreateButton("Reset", 263, 96, 91, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_Excel_Close = GUICtrlCreateButton("Close", 264, 136, 91, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_wiele_danych = GUICtrlCreateButton("Dla wielu danych", 23, 95, 211, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
-Global $Button_proces_stop = GUICtrlCreateButton("Error - quick exit", 22, 137, 211, 33)
-GUICtrlSetFont(-1, 10, 800, 0, "MS Sans Serif")
-GUICtrlSetBkColor(-1, 0xA0A0A0)
+Global $Okno_Tworzenie_kotwiczki = GUICreate("Program_name", 442, 201, 219, 126)
+GUISetFont(8, 400, 0, "Showcard Gothic")
+GUISetBkColor(0x313131)
+Global $Text_excel = GUICtrlCreateLabel("Excel", 336, 16, 94, 34, BitOR($SS_CENTER,$SS_NOPREFIX))
+GUICtrlSetFont(-1, 20, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0x569557)
+Global $Button_Start = GUICtrlCreateButton("Start", 16, 16, 155, 33)
+GUICtrlSetFont(-1, 12, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Start_Many = GUICtrlCreateButton("Start many", 16, 152, 155, 33, $BS_NOTIFY)
+GUICtrlSetFont(-1, 12, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Excel_Open = GUICtrlCreateButton("Open", 336, 64, 91, 33)
+GUICtrlSetFont(-1, 12, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Excel_Reset = GUICtrlCreateButton("Reset", 335, 112, 91, 33)
+GUICtrlSetFont(-1, 12, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Excel_Close = GUICtrlCreateButton("Close", 336, 160, 91, 33)
+GUICtrlSetFont(-1, 12, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Pic1 = GUICtrlCreatePic("C:\Users\glitkaczda\Desktop\Programowanie\Program Darka do tworzenia kotwiczek\Valmet_picture.jpg", 16, 64, 156, 73)
+Global $Meny_how = GUICtrlCreateInput("1", 184, 152, 65, 32, BitOR($GUI_SS_DEFAULT_INPUT,$ES_CENTER))
+GUICtrlSetFont(-1, 18, 400, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0x569557)
+GUICtrlSetBkColor(-1, 0xFFFFFF)
+GUICtrlSetCursor (-1, 5)
+Global $Check_Reset = GUICtrlCreateCheckbox("Excel reset", 184, 16, 129, 33, BitOR($GUI_SS_DEFAULT_CHECKBOX,$BS_CENTER,$BS_VCENTER))
+GUICtrlSetState(-1, $GUI_CHECKED)
+GUICtrlSetFont(-1, 12, 400, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Check_Zamknij = GUICtrlCreateCheckbox("Exit after", 184, 56, 129, 33, BitOR($GUI_SS_DEFAULT_CHECKBOX,$BS_CENTER,$BS_VCENTER))
+GUICtrlSetFont(-1, 12, 400, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Check_Speed = GUICtrlCreateCheckbox("Speed mode", 184, 96, 129, 33, BitOR($GUI_SS_DEFAULT_CHECKBOX,$BS_CENTER,$BS_VCENTER))
+GUICtrlSetFont(-1, 12, 400, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Up = GUICtrlCreateButton("Up", 260, 153, 51, 17)
+GUICtrlSetFont(-1, 7, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
+Global $Button_Down = GUICtrlCreateButton("Down", 260, 168, 51, 17)
+GUICtrlSetFont(-1, 7, 800, 0, "Showcard Gothic")
+GUICtrlSetColor(-1, 0xFFFFFF)
+GUICtrlSetBkColor(-1, 0x569557)
+GUICtrlSetCursor (-1, 0)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
@@ -51,7 +83,7 @@ $Txt_Excel_name = 'Kotwiczka'
 $Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
 $Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
 $Txt_ex_close = 'Excel - ' & $Txt_Excel_name & ' nie jest otwarty.'
-HotKeySet('e', 'HotKey_Exit')
+HotKeySet('+!e', 'HotKey_Exit')
 
 ;~ Login_user()
 Excel_Open()
@@ -59,7 +91,7 @@ Activate_program_name()
 
 While 1
 
-	HotKeySet('e', 'HotKey_Exit')
+	HotKeySet('+!e', 'HotKey_Exit')
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
@@ -67,15 +99,8 @@ While 1
 			Bye()
 			Exit
 
-		Case $Button_1
+		Case $Button_Start
 			$Button_x = 1
-			Tworzenie_kotwicy()
-
-		Case $Button_proces_stop
-			HotKey_Exit()
-
-		Case $Button_wiele_danych
-			$Button_x = 6
 			Tworzenie_kotwicy()
 
 		Case $Button_Excel_Open
@@ -93,29 +118,29 @@ WEnd
 
 Func Login_user()
 
-	HotKeySet('e', 'HotKey_Exit')
-	Global $Sciezka_ex, $haslo_moje, $haslo_tomek1
+	HotKeySet('+!e', 'HotKey_Exit')
+	Global $Sciezka_ex, $haslo_moje[1], $haslo_tomek[1]
 	Local $Sciezka_cz1, $Sciezka_cz2, $Txt_login, $login_wrong, $login_restart
-	$haslo_moje1 = "no"
-	$haslo_moje2 = "danditkaczuk"
-	$haslo_tomek1 = "123"
-	$haslo_tomek2 = "glinoconto"
+	$haslo_moje[0] = "no"
+	$haslo_moje[1] = "danditkaczuk"
+	$haslo_tomek[0] = "123"
+	$haslo_tomek[1] = "glinoconto"
 	$haslo_pawel1 = "glikozowpa"
 	$haslo_lukasz1 = "gliwoliclu"
 	$haslo_Ola = "ola"
 	$Txt_login = "gli pc_user_login"
 	$login = InputBox("Tworzenie kotwiczki z Darkiem :D", "Prosze, wpisz swój 10 literowy login", $Txt_login)
-	If $login = $haslo_moje1 Or $login = $haslo_moje2 Then
+	If $login = $haslo_moje[0] Or $login = $haslo_moje[1] Then
 		$login = "glitkaczda"
-	ElseIf $login = $haslo_tomek1 Or $login = $haslo_tomek2 Then
+	ElseIf $login = $haslo_tomek[0] Or $login = $haslo_tomek[1] Then
 		$login = "glinoconto"
-		MsgBox(0, $Program_name, "Czesc Tomasz ;D ", 1)
+		MsgBox(0, $Program_name, "Czesc Tomasz ;D ", 2)
 	ElseIf $login = $haslo_pawel1 Then
 		$login = "glikozowpa"
-		MsgBox(0, $Program_name, "Czesc Pewel !", 1)
+		MsgBox(0, $Program_name, "Czesc Pewel !", 2)
 	ElseIf $login = $haslo_lukasz1 Then
 		$login = "gliwoliclu"
-		MsgBox(0, $Program_name, "Czesc Lukasz !", 1)
+		MsgBox(0, $Program_name, "Czesc Lukasz !", 2)
 	ElseIf $login = $haslo_Ola Then
 		$login = "glitkaczda"
 		MsgBox(0, $Program_name, "Czesc kochanie ;*", 5)
@@ -126,7 +151,6 @@ Func Login_user()
 		MsgBox(0, $Program_name, "Wpisales zly login lub chcesz wyjsc")
 		$login_wrong = 1
 	EndIf
-
 	If $login_wrong = 1 Then
 		$login_restart = MsgBox(4, $Program_name, "Chcesz sprobowac jeszcze raz?")
 		If $login_restart = 6 Then
@@ -135,7 +159,6 @@ Func Login_user()
 			Exit
 		EndIf
 	EndIf
-;~ 	$Sciezka_ex = $Sciezka_cz1 & $login & $Sciezka_cz2
 
 EndFunc   ;==>Login_user
 
@@ -160,8 +183,8 @@ EndFunc   ;==>Bye
 
 Func Excel_Open()
 
-	HotKeySet('e', 'HotKey_Exit')
-	Local $ok = MsgBox(1, $Program_name, "Poczekaj, az odpali sie excel. Ok?",3)
+	HotKeySet('+!e', 'HotKey_Exit')
+	Local $ok = MsgBox(1, $Program_name, "Poczekaj, az odpali sie excel. Ok?", 3)
 	If $ok <> 7 And $ok <> 2 Then
 		WinActivate($Txt_Excel_name)
 		Local $ukosnik, $rozszerzenie
@@ -174,7 +197,12 @@ Func Excel_Open()
 		$Plik_Excel_open = _Excel_BookOpen($Program_Excel_open, $Sciezka_excela)
 		WinWait($Txt_Excel_name, "", 15)
 		If WinExists($Txt_Excel_name) Then
-			WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
+			HotKeySet('+!e', 'HotKey_Exit')
+			If WinExists($Epl) Then
+				WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
+			Else
+				MsgBox(0, $Program_name, "Program " & $Epl & " nie zostal wlaczony." & @CRLF & "Pamietaj by wlaczyc " & $Epl & "e i kliknac na strone.",3)
+			EndIf
 			WinSetState($Txt_Excel_name, '', @SW_HIDE)
 			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 3)
 			Activate_program_name()
@@ -201,7 +229,7 @@ EndFunc   ;==>Excel_Close
 
 Func Excel_Close_Button()
 
-	HotKeySet('e', 'HotKey_Exit')
+	HotKeySet('+!e', 'HotKey_Exit')
 	If WinExists($Txt_Excel_name) Then
 		WinActivate($Txt_Excel_name)
 		WinClose($Txt_Excel_name)
@@ -210,14 +238,14 @@ Func Excel_Close_Button()
 		MsgBox(0, "Excel", "Excel zostal zamkniety", 1)
 		Activate_program_name()
 	Else
-		MsgBox(0, $Program_name, $Txt_ex_close)
+		MsgBox(0, $Program_name, $Txt_ex_close,3)
 	EndIf
 
 EndFunc   ;==>Excel_Close_Button
 
 Func Excel_Reset()
 
-	HotKeySet('e', 'HotKey_Exit')
+	HotKeySet('+!e', 'HotKey_Exit')
 	If WinExists($Txt_Excel_name) Then
 		WinActivate($Txt_Excel_name)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
@@ -242,10 +270,10 @@ EndFunc   ;==>Excel_Reset
 Func Tworzenie_kotwicy()
 
 	Local $Do_ex_reset, $Handle_Epl_okno_kotwiczki, $Handle_Excel, $Przez_Excel, $Przez_Epl_okno_kotwiczki, $Txt_prep[10]
-	HotKeySet('e', 'HotKey_Exit')
+	HotKeySet('+!e', 'HotKey_Exit')
 	If WinExists($Txt_Excel_name) Then
 		If WinExists($Epl) Then
-			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.",5)
+			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.", 5)
 			$pis = $Button_x ;~ Ilosc kart na obwodówce
 ;~ 			$t3 = (3000 * ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
 			$tc = (2000 * ((1 * $pis))) ;~ tc - copy time
@@ -275,14 +303,14 @@ Func Tworzenie_kotwicy()
 			Next
 			WinSetTrans($Handle_Excel, "", 255)
 			WinSetOnTop($Epl_okno_kotwiczki, '', 1)
-			If $nMsg = $Button_wiele_danych Then MsgBox(0, $Program_name, 'Kliknij po ukazaniu sie okienka kotwiczki, by przyspieszyc 2 minutowe odliczanie.', 120)
+;~ 			If $nMsg = $Button_wiele_danych Then MsgBox(0, $Program_name, 'Kliknij po ukazaniu sie okienka kotwiczki, by przyspieszyc 2 minutowe odliczanie.', 120)
 			WinActivate($Epl_okno_kotwiczki)
 			WinWaitActive($Epl_okno_kotwiczki, "", 60)
 			If WinActive($Epl_okno_kotwiczki) Then
 				Sleep(1000)
 				$Epl_okno_kotwiczki_poz = WinGetPos($Epl_okno_kotwiczki)
 				WinActivate($Txt_Excel_name)
-				WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3],7)
+				WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3], 7)
 				WinActivate($Epl_okno_kotwiczki)
 				$Handle_Epl_okno_kotwiczki = WinGetHandle($Epl_okno_kotwiczki)
 				For $i = 255 to $Przez_Epl_okno_kotwiczki Step -1
@@ -424,8 +452,8 @@ Func Tworzenie_kotwicy()
 						WinMove($Txt_Excel_name, '', $Epl_poz[0] + 200, $Epl_poz[1] + 100, 1700, 800)
 						WinActivate($Txt_Excel_name)
 						Do
-						$ok = MsgBox(0, $Program_name, "Napatrzyles sie juz?")
-						Sleep(10000)
+							$ok = MsgBox(0, $Program_name, "Napatrzyles sie juz?")
+							Sleep(10000)
 						Until $ok = 1
 						WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
 						WinSetState($Txt_Excel_name, '', @SW_HIDE)
@@ -453,7 +481,7 @@ Func Tworzenie_kotwicy()
 EndFunc   ;==>Tworzenie_kotwicy
 
 Func Zaznaczanie()
-	HotKeySet('e', 'HotKey_Exit')
+	HotKeySet('+!e', 'HotKey_Exit')
 	Local $Kategoria = 'ComboBox2'
 	Local $Kategoria_wartosc = 'Wszystkie kategorie'
 	Local $Button_Zmienna = 2006
@@ -476,7 +504,7 @@ Func Zaznaczanie()
 	EndIf
 
 	Do
-		HotKeySet('e', 'HotKey_Exit')
+		HotKeySet('+!e', 'HotKey_Exit')
 		ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "SelectString", $Kategoria_wartosc)
 		Sleep(2000)
 		Local $k1
@@ -484,7 +512,7 @@ Func Zaznaczanie()
 	Until $k1 = $Kategoria_wartosc
 
 	Do
-		HotKeySet('e', 'HotKey_Exit')
+		HotKeySet('+!e', 'HotKey_Exit')
 		ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, $Status_zmienna)
 		ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, $Status_aktualna)
 		ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, $Status_wl_strony)
