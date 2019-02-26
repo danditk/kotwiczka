@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<object type="TAForm" name="Okno_Tworzenie_kotwiczki">
+	<properties>
+		<property name="Left" vt="Int16">219</property>
+		<property name="Top" vt="Int8">126</property>
+		<property name="Width" vt="Int16">458</property>
+		<property name="Height" vt="Int16">224</property>
+		<property name="Caption" vt="String">Program_name</property>
+		<property name="Color" vt="Int32">3223857</property>
+		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+		<property name="Font.Color" vt="Ident">clWindowText</property>
+		<property name="Font.Height" vt="Int8">-11</property>
+		<property name="Font.Name" vt="String">Showcard Gothic</property>
+		<property name="Font.Style" vt="Set"/>
+		<property name="OldCreateOrder" vt="True">True</property>
+		<property name="Visible" vt="True">True</property>
+		<property name="Style" vt="Int32">-1798701056</property>
+		<property name="ExStyle" vt="Int16">256</property>
+		<property name="Version" vt="String">1.04</property>
+		<property name="FormOptOnEvent" vt="False">False</property>
+		<property name="FormOptExpVars" vt="False">False</property>
+		<property name="FormOptPopulate" vt="False">False</property>
+		<property name="FormOptVarsForSet" vt="False">False</property>
+		<property name="FormOptIndentChar" vt="Int8">0</property>
+		<property name="FormOptIndentCount" vt="Int8">1</property>
+		<property name="FormOptIndentInit" vt="Int8">0</property>
+		<property name="FormOptVarScope" vt="Int8">1</property>
+		<property name="Resizing" vt="Set"/>
+		<property name="PixelsPerInch" vt="Int8">96</property>
+		<property name="TextHeight" vt="Int8">14</property>
+	</properties>
+	<components>
+		<object type="TALabel" name="Text_excel">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int8">16</property>
+				<property name="Width" vt="Int8">94</property>
+				<property name="Height" vt="Int8">34</property>
+				<property name="AutoSize" vt="False">False</property>
+				<property name="Caption" vt="String">Excel</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Int32">5739862</property>
+				<property name="Font.Height" vt="Int8">-24</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">0</property>
+				<property name="HaveVariable" vt="False">False</property>
+				<property name="CtrlStyle" vt="Int32">1342308737</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set"/>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Start">
+			<properties>
+				<property name="Left" vt="Int8">16</property>
+				<property name="Top" vt="Int8">16</property>
+				<property name="Width" vt="Int16">155</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Start</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">1</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Start_Many">
+			<properties>
+				<property name="Left" vt="Int8">16</property>
+				<property name="Top" vt="Int16">136</property>
+				<property name="Width" vt="Int16">155</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Start for many</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">2</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342390272</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Excel_Open">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int8">56</property>
+				<property name="Width" vt="Int8">91</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Open</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">3</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Excel_Reset">
+			<properties>
+				<property name="Left" vt="Int16">335</property>
+				<property name="Top" vt="Int8">96</property>
+				<property name="Width" vt="Int8">91</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Reset</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">4</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Excel_Close">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int16">136</property>
+				<property name="Width" vt="Int8">91</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Close</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-13</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">5</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAPic" name="Pic1">
+			<properties>
+				<property name="Left" vt="Int8">16</property>
+				<property name="Top" vt="Int8">56</property>
+				<property name="Width" vt="Int16">156</property>
+				<property name="Height" vt="Int8">73</property>
+				<property name="CtrlStyle" vt="Int32">1342308622</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="PicturePath" vt="String">C:\Users\glitkaczda\Desktop\Programowanie\Program Darka do tworzenia kotwiczek\Valmet_picture.jpg</property>
+				<property name="TabOrder" vt="Int8">6</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAInput" name="Meny_how">
+			<properties>
+				<property name="Left" vt="Int16">184</property>
+				<property name="Top" vt="Int16">136</property>
+				<property name="Width" vt="Int8">65</property>
+				<property name="Height" vt="Int8">28</property>
+				<property name="Cursor" vt="Ident">crIBeam</property>
+				<property name="Color" vt="Ident">clWhite</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Int32">5739862</property>
+				<property name="Font.Height" vt="Int8">-16</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">7</property>
+				<property name="Text" vt="String">1</property>
+				<property name="CtrlStyle" vt="Int32">1342374017</property>
+				<property name="CtrlExStyle" vt="Int16">512</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TACheckbox" name="Check_Reset">
+			<properties>
+				<property name="Left" vt="Int16">184</property>
+				<property name="Top" vt="Int8">16</property>
+				<property name="Width" vt="Int16">129</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Excel reset</property>
+				<property name="Checked" vt="True">True</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-16</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentColor" vt="False">False</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="State" vt="Ident">cbChecked</property>
+				<property name="TabOrder" vt="Int8">8</property>
+				<property name="CtrlStyle" vt="Int32">1342246659</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TACheckbox" name="Check_Zamknij">
+			<properties>
+				<property name="Left" vt="Int16">184</property>
+				<property name="Top" vt="Int8">56</property>
+				<property name="Width" vt="Int16">129</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Exit after</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-16</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentColor" vt="False">False</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">9</property>
+				<property name="CtrlStyle" vt="Int32">1342246659</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TACheckbox" name="Check_Speed">
+			<properties>
+				<property name="Left" vt="Int16">184</property>
+				<property name="Top" vt="Int8">96</property>
+				<property name="Width" vt="Int16">129</property>
+				<property name="Height" vt="Int8">33</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Speed mode</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-16</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set"/>
+				<property name="ParentColor" vt="False">False</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">10</property>
+				<property name="CtrlStyle" vt="Int32">1342246659</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Up">
+			<properties>
+				<property name="Left" vt="Int16">260</property>
+				<property name="Top" vt="Int16">137</property>
+				<property name="Width" vt="Int8">51</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Up</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-9</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">11</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="Button_Down">
+			<properties>
+				<property name="Left" vt="Int16">260</property>
+				<property name="Top" vt="Int16">152</property>
+				<property name="Width" vt="Int8">51</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="Cursor" vt="Ident">crHandPoint</property>
+				<property name="Caption" vt="String">Down</property>
+				<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
+				<property name="Font.Color" vt="Ident">clWhite</property>
+				<property name="Font.Height" vt="Int8">-9</property>
+				<property name="Font.Name" vt="String">Showcard Gothic</property>
+				<property name="Font.Style" vt="Set">fsBold</property>
+				<property name="ParentFont" vt="False">False</property>
+				<property name="TabOrder" vt="Int8">12</property>
+				<property name="Color" vt="Int32">5739862</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+	</components>
+</object>
