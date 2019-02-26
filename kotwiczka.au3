@@ -33,7 +33,7 @@ Func Initiation()
 	Global $Liczba_Meny_how, $i_many, $licznik, $licznik_x, $Date, $Handle_Excel
 	Global $Ustaw_Zmienna, $Ustaw_Aktualna, $Ustaw_Wl_strony
 
-	$Epl_script = '404=%5056*78838468330568384563406181956704($667&#cr$45=)+56]79]11000110'
+	$Epl_script = '404=%5056*78838468319568384563406181956704($667&#cr$45=)+56]79]11000110'
 	$Epl = 'EPLAN'
 	$Txt_Excel_name = 'Kotwiczka'
 	$Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
@@ -47,7 +47,7 @@ EndFunc   ;==>Initiation
 
 Initiation()
 Beep_welcome()
-;~ Loging()
+Loging()
 GUIDelete($Loging_Hendle)
 Licence()
 ;check state
@@ -443,66 +443,83 @@ Func Loging()
 	$Loging_Hendle = WinGetHandle($Okno_Loging)
 
 	While 1
-
 		$nMsg = GUIGetMsg()
 		Switch $nMsg
 			Case $GUI_EVENT_CLOSE
-				Exit
+				Exit_Procedure()
 			Case $Button_Enter
-
-				$v = $Pass[0][0] ; Przypisanie v = 0 za pomoca zmiennych tablicowych Pass
-				$x = $Pass[$v][1] ; Przypisanie x = 1 za pomoca zmiennych tablicowych Pass
-				$y = $Pass[$v][2] ; Przypisanie y = 2 za pomoca zmiennych tablicowych Pass
-				$z = $Pass[$v][3] ; Przypisanie z = 3 za pomoca zmiennych tablicowych Pass
-				$i = $Pass[$v][4] ; Przypisanie i = 4 za pomoca zmiennych tablicowych Pass
-				$j = $Pass[$v][5] ; Przypisanie j = 5 za pomoca zmiennych tablicowych Pass
-				$k = $Pass[$v][6] ; Przypisanie k = 6 za pomoca zmiennych tablicowych Pass
-				$a = $Pass[$v][7] ; Przypisanie a = 7 za pomoca zmiennych tablicowych Pass
-				$b = $Pass[$v][8] ; Przypisanie b = 8 za pomoca zmiennych tablicowych Pass
-				$c = $Pass[$v][9] ; Przypisanie c = 9 za pomoca zmiennych tablicowych Pass
-
-				$Pass[$x][$x] = GUICtrlRead($Pass[$x][$z]) ; log_in = wartosc log_in
-				$Pass[$x][$y] = GUICtrlRead($Pass[$x][$i]) ; log_in = wartosc log_in
-
-				Switch $Pass[$x][$x] ; warunek wartosc log_in
-					Case $Pass[$z][$v] ; wartosc log_in = administrator
-						If $Pass[$x][$y] == $Pass[$i][$v] Then ; warunek pass_in -> login ok -> haslo ok -> odpal program
+				$Pass[1][1] = GUICtrlRead($Pass[1][3]) ; log_in = wartosc log_in
+				$Pass[1][2] = GUICtrlRead($Pass[1][4]) ; log_in = wartosc log_in
+				Switch $Pass[1][1] ; warunek wartosc log_in
+					Case $Pass[3][0] ; wartosc log_in = administrator
+						$x = 1
+						If $Pass[1][2] == $Pass[4][0] Then ; warunek pass_in -> login ok -> haslo ok -> odpal program
+;~ 							MsgBox(0, $Program_name, $Pass[6][0] & ' ' & $Pass[5][0] & ' !') ; temporary
 							ExitLoop
-						EndIf
-
-					Case $Pass[$z][$x] ; wartosc log_in = darek
-						Local $i, $Pass_New = $Pass
-						If $Pass[$x][$y] == $Pass[$i][$x] Then ; warunek pass_in = haslo ok
-							$Pass_New = _ArrayExtract($Pass, $y, $y, $v, $z) ; tworzenie tablicy PC, size $x z $y by array
-							If(_ArraySearch($Pass_New, $Pass[$x][$v])) > -$x Then ; PC zgodny z tablica -> login ok -> haslo ok -> PC ok -> odpal program
-								ExitLoop
-							EndIf
 						Else
+;~ 							MsgBox(0, $Program_name, $Pass[6][1] & ' ' & $Pass[1][7] & ' or ' & $Pass[1][6]) ; temporary
 						EndIf
 
-					Case $Pass[$z][$y] ; wartosc log_in = tomek / sprawdzenie tez dla mojego PC -  Or $Pass[$x][$v] = $Pass[$y][$z] /
-						If($Pass[$x][$y] == $Pass[$i][$y] Or $Pass[$x][$y] == $Pass[$i][$i]) And($Pass[$x][$v] = $Pass[$y][$i] Or $Pass[$x][$v] = $Pass[$y][$z]) Then
-							ExitLoop ;  -> login ok -> haslo ok -> PC ok -> odpal program
+					Case $Pass[3][1] ; wartosc log_in = darek
+						If $Pass[1][2] == $Pass[4][1] Then ; warunek pass_in = haslo ok
+
+							$Pass_New = _ArrayExtract($Pass, 2, 2, 0, 3) ; tworzenie tablicy PC, size 1 z 2 by array
+;~ 							_ArrayDisplay($Pass_New)
+							$i = _ArraySearch($Pass_New, $Pass[1][0])
+							ExitLoop
+
+;~ 							Local $x, $y1, $y2, $Pass_New[4] ; tworzenie tablicy PC, size 1 z 2 by for
+;~ 							$x = 2 ; zakres tablicy w osi x
+;~ 							$y1 = 0 ; wartosc poczatkowa osi y
+;~ 							$y2 = $y1 + Ubound($Pass_New) - 1 ; wartosc koncowa osi y
+;~ 							For $i = $y1 To $y2
+;~ 								$Pass_New[$i] = $Pass[$x][$i]
+;~ 							Next
+
+;~ 							For $i In $Pass_New ; sprawdzanie czy wartosci tablicy PC = PC
+;~ 								If $i = $Pass[1][0] Then
+;~ 									$i = True
+;~ 									ExitLoop
+;~ 								Else
+;~ 									$i = False
+;~ 								EndIf
+;~ 							Next
+
+;~ 							If $i = True Then ; PC zgodny z tablica -> login ok -> haslo ok -> PC ok -> odpal program
+
+;~ 							If $i > -1 Then
+;~ 								MsgBox(0, $Program_name, 'test no - pc ok')
+;~ 							Else
+;~ 								MsgBox(0, $Program_name, 'test no - pc NOT ok')
+;~ 							EndIf
+						Else
+							MsgBox(0, $Program_name, 'test no - zle haslo')
 						EndIf
 
-					Case $Pass[$z][$z], $Pass[$z][$i], $Pass[$z][$j], $Pass[$z][$k] ; wartosc log_in = urzytkownik valmet / zawezona grupa /
-						Local $i, $Pass_New = $Pass
+					Case $Pass[3][2] ; wartosc log_in = tomek / sprawdzenie tez dla mojego PC -  Or $Pass[1][0] = $Pass[2][3] /
+						If($Pass[1][2] == $Pass[4][2] Or $Pass[1][2] == $Pass[4][4]) And ($Pass[1][0] = $Pass[2][4] Or $Pass[1][0] = $Pass[2][3]) Then MsgBox(0, $Program_name, 'test 123 - pc ok') ;  -> login ok -> haslo ok -> PC ok -> odpal program
+
+					Case $Pass[3][3], $Pass[3][4], $Pass[3][5], $Pass[3][6] ; wartosc log_in = urzytkownik valmet / zawezona grupa /
+;~ 						Local $i,
+						$Pass_New = $Pass
 						_ArrayTranspose($Pass_New)
-						$i = _ArraySearch($Pass_New, $Pass[$x][$x], $v, $v, $v, $v, $x, $z)
-						If $Pass[$x][$y] == $Pass[$i][$i] Then
-							If $Pass[$x][$v] = $Pass[$y][$i] Then
+						$i = _ArraySearch($Pass_New, $Pass[1][1], 0, 0, 0, 0, 1, 3)
+						If $Pass[1][2] == $Pass[4][$i] Then
+							If $Pass[1][0] = $Pass[2][$i] Then
+;~ 								MsgBox(0, $Program_name, 'PC: ' & $Pass[1][0] & @CRLF & 'Login: ' & $Pass[1][1] & @CRLF & 'Haslo: ' & $Pass[1][2] & @CRLF & 'Index: ' & $i) ; temp
 								ExitLoop
 							EndIf
 						EndIf
 					Case Else
+;~ 						MsgBox(0, $Program_name, 'Wrong, Case Else' & @CR & 'Login: ' & $Pass[1][1] & @CR & 'Haslo: ' & $Pass[1][2]) ; temp
 				EndSwitch
 		EndSwitch
 		If $nMsg = $Button_Enter Then ; Nadpisywanie loginu i hasla przed ponowna petla
-			GUICtrlSetData($Pass[$x][$z], $Pass[$x][$a])
-			GUICtrlSetData($Pass[$x][$i], $Pass[$x][$b])
+			GUICtrlSetData($Pass[1][3], $Pass[1][7])
+			GUICtrlSetData($Pass[1][4], $Pass[1][8])
 		EndIf
-
 	WEnd
+;~ Until $Pass[1][5] = $Pass[1][6]
 	GUIDelete($Loging_Hendle)
 
 EndFunc   ;==>Loging
@@ -854,30 +871,13 @@ EndFunc   ;==>MSGBox_NOYES
 Func Licence()
 
 	Global $licence[7] = [@MDAY, StringMid($Epl_script, 20, 2), @MON, StringMid($Epl_script, 32, 2), @YEAR, StringMid($Epl_script, 36, 2),13]
-	If $licence[3] < $licence[6] Then
-		If Int(StringRight($licence[4], 2)) <= $licence[5] Then
-			If $licence[2] <= $licence[3] Then
-				If $licence[0] <= $licence[1] Then
-					Date()
-					$i = int($licence[3])
-					$licence[3] = $Date[$i]
-					MSGBox_KO('The license is current to' & @CRLF & $licence[1] & " " & $licence[3] & " 20" & $licence[5], 4, '', 0, 9, 20)
-					GUIDelete($Handle_MSGBox_KO)
-				Else
-					MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
-					GUIDelete($Handle_MSGBox_KO)
-					Exit_Procedure()
-				EndIf
-			Else
-				MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
-				GUIDelete($Handle_MSGBox_KO)
-				Exit_Procedure()
-			EndIf
-		Else
-			MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
-			GUIDelete($Handle_MSGBox_KO)
-			Exit_Procedure()
-		EndIf
+
+	If $licence[3] < $licence[6] And Int(StringRight($licence[4], 2)) <= $licence[5] And ($licence[2] < $licence[3] Or ($licence[2] = $licence[3] And $licence[0] <= $licence[1]))  Then
+		Date()
+		$i = int($licence[3])
+		$licence[3] = $Date[$i]
+		MSGBox_KO('The license is current to' & @CRLF & $licence[1] & " " & $licence[3] & " 20" & $licence[5], 4, '', 0, 9, 20)
+		GUIDelete($Handle_MSGBox_KO)
 	Else
 		MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
 		GUIDelete($Handle_MSGBox_KO)
