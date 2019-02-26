@@ -8,22 +8,31 @@
 #include <Excel.au3>
 #include <Array.au3>
 
+;~ 1. Zmienne Main GUI
+Global $Program_name, $Okno_Tworzenie_kotwiczki, $Text_exce, $Button_Start, $Button_Start_Many, $nMsg
+Global $Button_Excel_Open, $Button_Excel_Reset, $Button_Excel_Close, $Pic1, $Meny_how, $Check_Reset, $Check_Zamknij
+Global $Check_Speed, $Button_Up, $Button_Down
+$Program_name = "Tworzenie kotwiczki z Darkiem :D"
+
 Global $Loging_Hendle, $Txt_Excel_name, $Excel_full_name, $Sciezka_excela, $Program_Excel_open, $Plik_Excel_open
 Global $Epl, $Epl_poz, $licence, $Epl_script, $Epl_okno_kotwiczki_poz, $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
-Global $Liczba_Meny_how, $licznik, $licznik_x, $Date
-$Epl_script = '404=%5056*78838468319568384563406181956704($667&#cr$45=)+56]79]11000110'
-$Epl = "EPLAN Electric P8 2.7"
+Global $Liczba_Meny_how, $i_many, $licznik, $licznik_x, $Date, $Handle_Excel
+Global $Ustaw_Zmienna, $Ustaw_Aktualna, $Ustaw_Wl_strony
+
+$Epl_script = '404=%5056*7883846830956838456341181856704($667&#cr$45=)+56]79]11000110'
+$Epl = 'EPLAN'
 $Txt_Excel_name = 'Kotwiczka'
 $Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
 $Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
 $Txt_ex_close = 'Excel - ' & $Txt_Excel_name & ' nie jest otwarty.'
+$Epl_poz = WinGetPos($Epl)
 HotKeySet('+!e', 'HotKey_Exit')
 Global $Program_name = "Tworzenie kotwiczki z Darkiem :D"
 
 ;~ Loging()
 ;~ GUIDelete($Loging_Hendle)
 ;~ Licence()
-Beep_welcome()
+;~ Beep_welcome()
 ;check state
 Excel_Open()
 ;check state
@@ -112,19 +121,7 @@ Func Program_kotwiczka()
 				Tworzenie_kotwicy()
 
 			Case $Button_Start_Many
-				HotKeySet('+d', 'Exit_Procedure')
-				$Liczba_Meny_how = GUICtrlRead($Meny_how)
-				For $i = 1 To $Liczba_Meny_how
-					Tworzenie_kotwicy()
-					If $i < $Liczba_Meny_how Then
-						WinActivate($Epl)
-						AutoItSetOption('MouseCoordMode', 0)
-						WinWaitActive($Epl)
-						MouseClick('primary', 370, 130, 1, 0)
-						AutoItSetOption('MouseCoordMode', 1)
-						Send("{PGDN}")
-					EndIf
-				Next
+				Tworzenie_kotwicy_many()
 
 			Case $Button_Up
 				$Liczba_Meny_how = GUICtrlRead($Meny_how)
@@ -162,11 +159,12 @@ EndFunc   ;==>Program_kotwiczka
 Func Tworzenie_kotwicy()
 
 	Local $Do_ex_reset, $Handle_Epl_okno_kotwiczki, $Handle_Excel, $Przez_Excel, $Przez_Epl_okno_kotwiczki, $Speed_mode_time
+	$Liczba_Meny_how = GUICtrlRead($Meny_how)
 	If GUICtrlRead($Check_Speed) = 1 Then $Speed_mode_time = 0
 	If WinExists($Txt_Excel_name) Then
 		If WinExists($Epl) Then
 			$Epl_poz = WinGetPos($Epl)
-			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.", 5)
+			MsgBox(1, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.", 5)
 			$tc = 2000 ;~ tc - copy time
 			$ta = 1000 * $Speed_mode_time ;~ ta - approve timen
 			$Przez_Epl_okno_kotwiczki = 80
@@ -178,11 +176,12 @@ Func Tworzenie_kotwicy()
 			WinWaitActive($Epl)
 			MouseClick('primary', 370, 130, 1, 0)
 			AutoItSetOption('MouseCoordMode', 1)
-			Sleep(100)
+			Sleep(500)
 			ControlSend($Epl, '', "[CLASSNN:AfxFrameOrView140u1]", '^{a}')
-			Sleep(250)
+			Sleep(500)
 			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '!{t}')
 			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '{o}')
+			If GUICtrlRead($Check_Speed) = 1 Then MsgBox(0, $Program_name, 'Kliknij "OK" po ukazaniu sie okienka kotwiczki, by przyspieszyc 3 minutowe odliczanie.', 180)
 			WinWait($Epl_okno_kotwiczki, '', 20)
 			$Handle_Excel = WinGetHandle($Txt_Excel_name)
 			If GUICtrlRead($Check_Speed) = 4 Then
@@ -195,11 +194,10 @@ Func Tworzenie_kotwicy()
 				Next
 				WinSetTrans($Handle_Excel, "", 255)
 			EndIf
-			If GUICtrlRead($Check_Speed) = 1 Then MsgBox(0, $Program_name, 'Kliknij "OK" po ukazaniu sie okienka kotwiczki, by przyspieszyc 3 minutowe odliczanie.', 180)
 			WinActivate($Epl_okno_kotwiczki)
 			WinWaitActive($Epl_okno_kotwiczki, "", 60)
 			If WinActive($Epl_okno_kotwiczki) Then
-				Sleep(1000)
+				If GUICtrlRead($Check_Speed) = 0 Then Sleep(10000)
 				$Epl_okno_kotwiczki_poz = WinGetPos($Epl_okno_kotwiczki)
 				WinActivate($Txt_Excel_name)
 				If GUICtrlRead($Check_Speed) = 4 Then
@@ -212,9 +210,9 @@ Func Tworzenie_kotwicy()
 				Else
 					WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_okno_kotwiczki_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3])
 				EndIf
-				Global $Ustaw_Zmienna = 0
-				Global $Ustaw_Aktualna = 1
-				Global $Ustaw_Wl_strony = 1
+;~ 				Global $Ustaw_Zmienna = 0
+;~ 				Global $Ustaw_Aktualna = 1
+;~ 				Global $Ustaw_Wl_strony = 1
 				WinActivate($Epl_okno_kotwiczki)
 				Zaznaczanie()
 				Sleep(100)
@@ -222,7 +220,7 @@ Func Tworzenie_kotwicy()
 				$Handle_Epl_okno_kotwiczki = WinGetHandle($Epl_okno_kotwiczki)
 				If GUICtrlRead($Check_Speed) = 4 Then
 					For $i = 255 to $Przez_Epl_okno_kotwiczki Step -1
-						WinSetTrans($Handle_Epl_okno_kotwiczki, "", $i)
+						WinSetTrans($Handle_Epl_okno_kotwiczki, "n", $i)
 						Sleep(20)
 					Next
 					WinSetTrans($Handle_Epl_okno_kotwiczki, "", $Przez_Epl_okno_kotwiczki)
@@ -246,10 +244,10 @@ Func Tworzenie_kotwicy()
 				Send("^{a}")
 				Send("^+{F10}")
 				Send("{p}")
-				$Ustaw_Zmienna = 1
-				$Ustaw_Aktualna = 0
-				$Ustaw_Wl_strony = 1
-				Zaznaczanie()
+;~ 				$Ustaw_Zmienna = 1
+;~ 				$Ustaw_Aktualna = 0
+;~ 				$Ustaw_Wl_strony = 1
+				Zaznaczanie(1, 0, 1)
 				WinActivate($Epl_okno_kotwiczki)
 				Send("!{k}")
 				Send("{TAB}")
@@ -258,6 +256,9 @@ Func Tworzenie_kotwicy()
 				Sleep($tc)
 
 ;~ 2. Usuniecie nazw pelnych w excelu
+
+				$Epl_okno_kotwiczki_poz = WinGetPos($Epl_okno_kotwiczki)
+				WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_okno_kotwiczki_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3], 10)
 				WinSetState($Txt_Excel_name, '', @SW_SHOW)
 				WinActivate($Txt_Excel_name)
 				Sleep(300)
@@ -296,7 +297,7 @@ Func Tworzenie_kotwicy()
 				Sleep(300)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{F5}')
 				Sleep(300)
-				If GUICtrlRead($Check_Speed) = 4 Then WinSetTrans('Go To', "", $Przez_Excel)
+				WinSetTrans('Go To', "", $Przez_Excel)
 				WinActivate($Txt_Excel_name)
 				Sleep(100)
 				ControlSend('Go To', '', 'EDTBX1', '{z}')
@@ -355,13 +356,18 @@ Func Tworzenie_kotwicy()
 				If GUICtrlRead($Check_Speed) = 4 Then
 					WinSetTrans($Handle_Excel, "", 255)
 				EndIf
-				MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 3)
-				If GUICtrlRead($Check_Zamknij) = 1 Then Exit_Procedure()
+				If $nMsg = $Button_Start Then
+					MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 3)
+				ElseIf $i_many >= $Liczba_Meny_how Then
+					Local $literki = 'ki'
+					If $Liczba_Meny_how >= 5 Then $literki = 'ek'
+					MsgBox(0, $Program_name, $Liczba_Meny_how & ' Twoich kotwicz' & $literki & ' zostalo utworzone', 3)
+				EndIf
+				If(GUICtrlRead($Check_Zamknij) = 1 And $nMsg = $Button_Start) Or(GUICtrlRead($Check_Zamknij) = 1 And $nMsg = $Button_Start_Many And $i_many >= $Liczba_Meny_how) Then Exit_Procedure()
 				If GUICtrlRead($Check_Reset) = 1 Then
 					Excel_Reset()
 				Else
 					Excel_Do_Reset()
-					If $licznik <> $licznik_x Then Excel_Reset()
 				EndIf
 			Else
 				Activate_program_name_err()
@@ -489,6 +495,7 @@ Func Loging()
 		EndIf
 
 	WEnd
+	GUIDelete($Loging_Hendle)
 
 EndFunc   ;==>Loging
 
@@ -496,7 +503,6 @@ EndFunc   ;==>Loging
 
 Func Excel_Open()
 
-	Global $licznik = 1, $licznik_x = 3
 	If Not WinExists($Txt_Excel_name) Then
 		Local $ok = MsgBox(1, $Program_name, "Poczekaj, az odpali sie excel. Ok?", 5)
 		If $ok <> 7 And $ok <> 2 Then
@@ -510,6 +516,7 @@ Func Excel_Open()
 			$Program_Excel_open = _Excel_Open()
 			$Plik_Excel_open = _Excel_BookOpen($Program_Excel_open, $Sciezka_excela)
 			WinWait($Txt_Excel_name, "", 15)
+			WinSetTrans($Handle_Excel, "", 255)
 			If WinExists($Txt_Excel_name) Then
 				If WinExists($Epl) Then
 					WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
@@ -525,7 +532,6 @@ Func Excel_Open()
 		EndIf
 	Else
 		Excel_Do_Reset()
-		If $licznik <> $licznik_x Then Excel_Reset()
 	EndIf
 
 EndFunc   ;==>Excel_Open
@@ -561,33 +567,45 @@ EndFunc   ;==>Excel_Close_Button
 
 Func Excel_Do_Reset()
 
+	Global $licznik = 1, $licznik_x = 3
 	Do
 		$Do_ex_reset = MsgBox(4, $Program_name, "Czy chcesz zresetowac excela?", 8)
 		If $Do_ex_reset = $IDNO Then
 			$Do_ex_show = MsgBox(4, $Program_name, "Chcesz zobaczyc dane z Excel - " & $Txt_Excel_name & "?", 10)
 			If $Do_ex_show = 6 Then
+				WinSetTrans($Handle_Excel, "", 255)
 				WinSetState($Txt_Excel_name, '', @SW_SHOW)
 				WinMove($Txt_Excel_name, '', $Epl_poz[0] + 200, $Epl_poz[1] + 100, 1700, 800)
 				WinActivate($Txt_Excel_name)
 				Do
 					Sleep(10000)
-					$ok = MsgBox(4, $Program_name, "Napatrzyles sie juz?")
+					Local $ok = MsgBox(4, $Program_name, "Napatrzyles sie juz?")
 				Until $ok = 6
 				WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
 				WinSetState($Txt_Excel_name, '', @SW_HIDE)
 			EndIf
+		Else
+			Excel_Reset()
+			ExitLoop
 		EndIf
 		$licznik += 1
-	Until $Do_ex_reset <> $IDNO Or $licznik = $licznik_x
-	If $licznik = $licznik_x Then
+	Until $Do_ex_reset = $IDYES Or $licznik >= $licznik_x
+	If $licznik >= $licznik_x Then
 		$Do_ex_show = MsgBox(4, $Program_name, "Chcesz zobaczyc dane z Excel" & $Txt_Excel_name, 8)
 		If $Do_ex_show = 6 Then
+			WinSetTrans($Handle_Excel, "", 255)
 			WinSetState($Txt_Excel_name, '', @SW_SHOW)
 			WinMove($Txt_Excel_name, '', 100, 100, 1700, 800)
 			WinActivate($Txt_Excel_name)
 		EndIf
 	EndIf
+	If $Do_ex_reset = $IDNO And $licznik > 1 Then
+		$Do_ex_reset = MsgBox(4, $Program_name, "Czy chcesz zresetowac excela?", 8)
+		If $Do_ex_reset = $IDYES Then Excel_Reset()
+	EndIf
 
+
+	WinActivate($Program_name)
 EndFunc   ;==>Excel_Do_Reset
 
 Func Excel_Reset()
@@ -596,9 +614,9 @@ Func Excel_Reset()
 		WinActivate($Txt_Excel_name)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
 		Sleep(100)
-		For $i = 1 To 10
+		For $i = 1 To 5
 			ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{z}')
-			Sleep(100)
+			Sleep(1000)
 		Next
 		Sleep(100)
 		ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
@@ -613,18 +631,48 @@ Func Excel_Reset()
 		EndIf
 
 	EndIf
+	WinActivate($Program_name)
 
 EndFunc   ;==>Excel_Reset
 
 
+Func Tworzenie_kotwicy_many()
 
-Func Zaznaczanie()
+	Global $i_many, $Liczba_Meny_how = GUICtrlRead($Meny_how)
+	If $Liczba_Meny_how > 1 Then
+		HotKeySet('+d', 'Exit_Procedure')
+		For $i_many = 1 To $Liczba_Meny_how
+			Tworzenie_kotwicy()
+			If $i_many < $Liczba_Meny_how Then
+				Sleep(1000)
+				WinActivate($Epl)
+				AutoItSetOption('MouseCoordMode', 0)
+				WinWaitActive($Epl)
+				MouseClick('primary', 370, 130, 1, 0)
+				AutoItSetOption('MouseCoordMode', 1)
+				Send("{PGDN}")
+			EndIf
+		Next
+	Else
+		Tworzenie_kotwicy()
+	EndIf
+	WinActivate($Program_name)
 
-	Local $Kategoria = 'ComboBox2'
+EndFunc   ;==>Tworzenie_kotwicy_many
+
+Func Zaznaczanie($Ustaw_Zmienna = 0, $Ustaw_Aktualna = 1, $Ustaw_Wl_strony = 1)
+
+	Local $Kategoria = 1006
 	Local $Kategoria_wartosc = 'Wszystkie kategorie'
 	Local $Button_Zmienna = 2006
 	Local $Button_Aktualna = 2065
 	Local $Button_Wl_strony = 2005
+	Local $k1, $k2, $k3, $k4
+	$k1 = ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "GetCurrentSelection", "")
+	$k2 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, 'IsChecked')
+	$k3 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, 'IsChecked')
+	$k4 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, 'IsChecked')
+
 	If $Ustaw_Zmienna = 1 Then
 		$Status_zmienna = 'Check'
 	ElseIf $Ustaw_Zmienna = 0 Then
@@ -641,23 +689,28 @@ Func Zaznaczanie()
 		$Status_wl_strony = 'UnCheck'
 	EndIf
 
-	Do
-		ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "SelectString", $Kategoria_wartosc)
-		Sleep(2000)
-		Local $k1
-		$k1 = ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "GetCurrentSelection", "")
-	Until $k1 = $Kategoria_wartosc
+	If $k1 <> $Kategoria_wartosc Then
+		ControlSend($Epl_okno_kotwiczki, '', 1006, '{down}')
+		Do
+			ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "SelectString", $Kategoria_wartosc)
+			Sleep(2000)
+			$k1 = ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "GetCurrentSelection", "")
+		Until $k1 = $Kategoria_wartosc
+	EndIf
 
-	Do
-		ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, $Status_zmienna)
-		ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, $Status_aktualna)
-		ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, $Status_wl_strony)
-		Local $k2, $k3, $k4
-		$k2 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, 'IsChecked')
-		$k3 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, 'IsChecked')
-		$k4 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, 'IsChecked')
-		Sleep(2000)
-	Until $k2 = $Ustaw_Zmienna And $k3 = $Ustaw_Aktualna And $k4 = $Ustaw_Wl_strony
+	If $k2 <> $Ustaw_Zmienna Or $k3 <> $Ustaw_Aktualna Or $k4 <> $Ustaw_Wl_strony Then
+		ControlSend($Epl_okno_kotwiczki, '', 2006, '{space}')
+		Do
+			ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, $Status_zmienna)
+			ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, $Status_aktualna)
+			ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, $Status_wl_strony)
+			Sleep(2000)
+			$k2 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Zmienna, 'IsChecked')
+			$k3 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Aktualna, 'IsChecked')
+			$k4 = ControlCommand($Epl_okno_kotwiczki, "", $Button_Wl_strony, 'IsChecked')
+		Until $k2 = $Ustaw_Zmienna And $k3 = $Ustaw_Aktualna And $k4 = $Ustaw_Wl_strony
+	EndIf
+
 EndFunc   ;==>Zaznaczanie
 
 Func Licence()
@@ -689,7 +742,7 @@ EndFunc   ;==>HotKey_Exit
 
 Func Exit_Procedure()
 	Excel_Close()
-	Beep_bye()
+;~ 	Beep_bye()
 	MsgBox(0, $Program_name, "Wszystko pozamykane, dziekuje " & @CRLF & @CRLF & "BYE!", 3)
 	Exit
 EndFunc   ;==>Exit_Procedure
