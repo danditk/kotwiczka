@@ -44,10 +44,9 @@ GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
 Global $Txt_Excel_name, $Excel_full_name, $Sciezka_excela, $Program_Excel_open, $Plik_Excel_open
-Global $Epl, $Epl_poz,$Epl_okno_kotwiczki_poz , $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
+Global $Epl, $Epl_poz, $Epl_okno_kotwiczki_poz, $Epl_okno_kotwiczki, $Ask_ex_open, $Txt_ex_close, $login
 $Epl = "EPLAN Electric P8 2.7"
 $Epl_poz = WinGetPos($Epl)
-$Epl_okno_kotwiczki_poz = WinGetCaretPos($Epl_okno_kotwiczki)
 $Txt_Excel_name = 'Kotwiczka'
 $Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
 $Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
@@ -162,8 +161,8 @@ EndFunc   ;==>Bye
 Func Excel_Open()
 
 	HotKeySet('e', 'HotKey_Exit')
-	Local $ok = MsgBox(1, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?")
-	If $ok = 1 Then
+	Local $ok = MsgBox(1, $Program_name, "Poczekaj, az odpali sie excel. Ok?",3)
+	If $ok <> 7 And $ok <> 2 Then
 		WinActivate($Txt_Excel_name)
 		Local $ukosnik, $rozszerzenie
 		$ukosnik = '\'
@@ -173,12 +172,11 @@ Func Excel_Open()
 		$Sciezka_excela = @ScriptDir & $ukosnik
 		$Program_Excel_open = _Excel_Open()
 		$Plik_Excel_open = _Excel_BookOpen($Program_Excel_open, $Sciezka_excela)
-		If WinWaitActive($Txt_Excel_name, "", 15) Then
-			If WinExists($Epl) Then
-				WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
-			EndIf
-			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 2)
+		WinWait($Txt_Excel_name, "", 15)
+		If WinExists($Txt_Excel_name) Then
+			WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
 			WinSetState($Txt_Excel_name, '', @SW_HIDE)
+			MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 3)
 			Activate_program_name()
 		Else
 			Activate_program_name_err()
@@ -243,15 +241,17 @@ EndFunc   ;==>Excel_Reset
 
 Func Tworzenie_kotwicy()
 
-	Local $Do_ex_reset
+	Local $Do_ex_reset, $Handle_Epl_okno_kotwiczki, $Handle_Excel, $Przez_Excel, $Przez_Epl_okno_kotwiczki, $Txt_prep[10]
 	HotKeySet('e', 'HotKey_Exit')
 	If WinExists($Txt_Excel_name) Then
 		If WinExists($Epl) Then
-			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.")
+			MsgBox(0, $Program_name, "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy, ze to TY cos zrobiles nie tak.",5)
 			$pis = $Button_x ;~ Ilosc kart na obwodówce
-			$t3 = (3000 * ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
+;~ 			$t3 = (3000 * ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
 			$tc = (2000 * ((1 * $pis))) ;~ tc - copy time
 			$ta = 250 ;~ ta - approve timen
+			$Przez_Epl_okno_kotwiczki = 80
+			$Przez_Excel = 80
 
 ;~ 1. Skopiowanie nazw pelnych do excela
 			WinActivate($Epl)
@@ -265,14 +265,39 @@ Func Tworzenie_kotwicy()
 			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '!{t}')
 			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '{o}')
 			WinWait($Epl_okno_kotwiczki, '', 5)
+			$Handle_Excel = WinGetHandle($Txt_Excel_name)
+			WinSetTrans($Handle_Excel, "", 0)
+			WinSetState($Txt_Excel_name, '', @SW_SHOW)
+			WinActivate($Txt_Excel_name)
+			For $i = 0 to 255
+				WinSetTrans($Handle_Excel, "", $i)
+				Sleep(10)
+			Next
+			WinSetTrans($Handle_Excel, "", 255)
 			WinSetOnTop($Epl_okno_kotwiczki, '', 1)
-			WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 10, $Epl_poz[1] + 10, 0, 0)
-			WinActivate($Epl_okno_kotwiczki)
 			If $nMsg = $Button_wiele_danych Then MsgBox(0, $Program_name, 'Kliknij po ukazaniu sie okienka kotwiczki, by przyspieszyc 2 minutowe odliczanie.', 120)
+			WinActivate($Epl_okno_kotwiczki)
 			WinWaitActive($Epl_okno_kotwiczki, "", 60)
 			If WinActive($Epl_okno_kotwiczki) Then
+				Sleep(1000)
+				$Epl_okno_kotwiczki_poz = WinGetPos($Epl_okno_kotwiczki)
+				WinActivate($Txt_Excel_name)
+				WinMove($Txt_Excel_name, '', $Epl_okno_kotwiczki_poz[0] + 100, $Epl_poz[1] + 100, $Epl_okno_kotwiczki_poz[2], $Epl_okno_kotwiczki_poz[3],7)
+				WinActivate($Epl_okno_kotwiczki)
+				$Handle_Epl_okno_kotwiczki = WinGetHandle($Epl_okno_kotwiczki)
+				For $i = 255 to $Przez_Epl_okno_kotwiczki Step -1
+					WinSetTrans($Handle_Epl_okno_kotwiczki, "", $i)
+					Sleep(20)
+				Next
+				WinSetTrans($Handle_Epl_okno_kotwiczki, "", $Przez_Epl_okno_kotwiczki)
+				For $i = 255 to $Przez_Excel Step -1
+					WinSetTrans($Handle_Excel, "", $i)
+					Sleep(10)
+				Next
+				WinSetTrans($Handle_Excel, "", $Przez_Excel)
+				WinSetState($Txt_Excel_name, '', @SW_HIDE)
+				WinActivate($Epl_okno_kotwiczki)
 				AutoItSetOption('MouseCoordMode', 0)
-				Sleep(10000)
 				MouseClick('primary', 100, 70, 1, 0)
 				Sleep(100)
 				MouseClick('primary', 115, 190, 1, 0)
@@ -281,7 +306,6 @@ Func Tworzenie_kotwicy()
 				Sleep(100)
 				MouseClick('primary', 90, 290, 1, 0)
 				AutoItSetOption('MouseCoordMode', 1)
-				Sleep(100)
 				Global $Ustaw_Zmienna = 0
 				Global $Ustaw_Aktualna = 1
 				Global $Ustaw_Wl_strony = 1
@@ -293,7 +317,6 @@ Func Tworzenie_kotwicy()
 				Send("^{a}")
 				Send("^+{F10}")
 				Send("{p}")
-				Sleep($t3)
 				$Ustaw_Zmienna = 1
 				$Ustaw_Aktualna = 0
 				$Ustaw_Wl_strony = 1
@@ -305,18 +328,19 @@ Func Tworzenie_kotwicy()
 
 ;~ 2. Usuniecie nazw pelnych w excelu
 				WinSetState($Txt_Excel_name, '', @SW_SHOW)
+				WinActivate($Txt_Excel_name)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{HOME}')
-				Sleep($tc)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{v}')
-				Sleep($ta)
+				Sleep(300)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '+{Enter}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{RIGHT}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^+{UP}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '+{DOWN}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{c}')
 				Sleep($tc)
 				WinSetState($Txt_Excel_name, '', @SW_HIDE)
@@ -336,28 +360,28 @@ Func Tworzenie_kotwicy()
 
 ;~ 4. Zamiana Wlasciwosci na prawidlowe w excelu
 				WinSetState($Txt_Excel_name, '', @SW_SHOW)
-				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{F5}')
-				Sleep($ta)
 				WinActivate($Txt_Excel_name)
-				Sleep($ta)
+				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{F5}')
+				Sleep(300)
+				WinSetTrans('Go To', "", $Przez_Excel)
+				WinActivate($Txt_Excel_name)
+				Sleep(100)
 				ControlSend('Go To', '', 'EDTBX1', '{z}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend('Go To', '', 'EDTBX1', '{Enter}')
-				Sleep($ta)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{RIGHT}')
-				Sleep($ta)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{LEFT}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{v}')
-				Sleep($ta)
+				Sleep(300)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '+{Enter}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '{RIGHT}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^+{UP}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '+{DOWN}')
-				Sleep($ta)
+				Sleep(100)
 				ControlSend($Txt_Excel_name, '', 'NetUIHWND2', '^{c}')
 				Sleep($tc)
 				WinSetState($Txt_Excel_name, '', @SW_HIDE)
@@ -368,26 +392,41 @@ Func Tworzenie_kotwicy()
 				Send("^+{F10}")
 				Send("{o}")
 				Send("^{v}")
-				Sleep($tc)
+				For $i = $Przez_Epl_okno_kotwiczki to 120
+					WinSetTrans($Handle_Epl_okno_kotwiczki, "", $i)
+					Sleep(20)
+				Next
 
 ;~ 6. Nazwanie kotwiczki
 				Send("{TAB}")
+				For $i = 120 to 180
+					WinSetTrans($Handle_Epl_okno_kotwiczki, "", $i)
+					Sleep(20)
+				Next
 				Send("!{n}")
-				Send("PREPlANNING")
+				Send('PREPLANNING')
+				For $i = 180 to 255
+					WinSetTrans($Handle_Epl_okno_kotwiczki, "", $i)
+					Sleep(20)
+				Next
+				WinSetTrans($Handle_Epl_okno_kotwiczki, "", 255)
 				Sleep($ta)
 				Send("{Enter}")
 				WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
+				WinSetTrans($Handle_Excel, "", 255)
 				WinSetOnTop($Epl_okno_kotwiczki, '', 0)
-				MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 5)
+				MsgBox(0, $Program_name, "Kotwiczka stworzona ( mam nadzieje ;D )", 3)
 				$Do_ex_reset = MsgBox(4, $Program_name, "Czy chcesz zresetowac excela?", 5)
 				If $Do_ex_reset = 7 Then
 					$Do_ex_show = MsgBox(4, $Program_name, "Chcesz sobaczyc dane z Excel - " & $Txt_Excel_name & "?", 10)
 					If $Do_ex_show = 6 Then
 						WinSetState($Txt_Excel_name, '', @SW_SHOW)
-						WinActivate($Txt_Excel_name)
 						WinMove($Txt_Excel_name, '', $Epl_poz[0] + 200, $Epl_poz[1] + 100, 1700, 800)
-						Sleep(20000)
-						MsgBox(0, $Program_name, "Napatrzyles sie juz?")
+						WinActivate($Txt_Excel_name)
+						Do
+						$ok = MsgBox(0, $Program_name, "Napatrzyles sie juz?")
+						Sleep(10000)
+						Until $ok = 1
 						WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
 						WinSetState($Txt_Excel_name, '', @SW_HIDE)
 					EndIf
@@ -439,7 +478,7 @@ Func Zaznaczanie()
 	Do
 		HotKeySet('e', 'HotKey_Exit')
 		ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "SelectString", $Kategoria_wartosc)
-		Sleep(500)
+		Sleep(2000)
 		Local $k1
 		$k1 = ControlCommand($Epl_okno_kotwiczki, "", $Kategoria, "GetCurrentSelection", "")
 	Until $k1 = $Kategoria_wartosc
