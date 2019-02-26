@@ -2,6 +2,9 @@
 #include <GUIConstantsEx.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
+#include <AutoItConstants.au3>
+#include <MsgBoxConstants.au3>
+
 #Region ### START Koda GUI section ### Form=
 Global $Okno_Tworzenie_kotwiczki = GUICreate("Tworzenie kotwiczki z Darkiem :D", 381, 192, 192, 124)
 Global $Tekst_Ilosc_kart = GUICtrlCreateLabel("Ilosc kart na obwodowce", 24, 16, 214, 26, $SS_CENTER)
@@ -38,81 +41,63 @@ GUICtrlSetBkColor(-1, 0xA0A0A0)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
-
-Open_Kotwiczka()
+Excel_Open()
 WinActivate("Tworzenie kotwiczki z Darkiem :D")
+
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
-			WinActivate("Kotwiczka")
-			Czyszczenie_excela()
-			WinActivate("Kotwiczka")
-			Send("!{F4}")
-			Sleep(100)
-			Send("{RIGHT}")
-			Send("{Enter}")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Wszystko pozamykane, dziekuje ;*", 5)
+			Excel_Close()
+			Bye()
 			Exit
 
 		Case $Button_1
 			$Buton_x = 1
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona (mam nadzieje) ;*", 10)
 
 		Case $Button_2
 			$Buton_x = 2
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona (mam nadzieje) ;*", 10)
 
 		Case $Button_3
 			$Buton_x = 3
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona (mam nadzieje) ;*", 10)
 
 		Case $Button_4
 			$Buton_x = 4
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona (mam nadzieje) ;*", 10)
 
 		Case $Button_W_Wac
 			$Buton_x = 5
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona (mam nadzieje) ;*", 10)
 
 		Case $Button_Jeszcze_wiecej
 			$Buton_x = 8
 			Tworzenie_kotwicy()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
-			MsgBox(0,"Tworzenie kotwiczki z Darkiem :D","Kotwiczka stworzona (mam nadzieje) ;*",10)
-
 
 		Case $Button_Excel_Open
-			Open_Kotwiczka()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
+			Excel_Open()
 
 		Case $Button_Excel_Reset
 			Czyszczenie_excela()
-			WinActivate("Tworzenie kotwiczki z Darkiem :D")
 
 		Case $Button_Excel_Close
-			Czyszczenie_excela()
-			WinActivate("Kotwiczka")
-			Send("!{F4}")
-			Sleep(100)
-			Send("{RIGHT}")
-			Send("{Enter}")
+			Excel_Close()
 
 	EndSwitch
+
 WEnd
 
 
-Func Open_Kotwiczka()
+Func Bye()
+
+	MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Wszystko pozamykane, dziekuje " & @CRLF & @CRLF & "BYE!", 4)
+
+EndFunc   ;==>Bye
+
+Func Excel_Open()
+
 	MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Poczekaj, az wyskoczy kolejne okienko. Ok?")
 	Send("#r")
 	Sleep(250)
@@ -123,52 +108,67 @@ Func Open_Kotwiczka()
 	Send("!{o 2}")
 	Send("C:\Users\glitkaczda\Desktop\Program Darka do tworzenia kotwiczek\Kotwiczka.xlsx")
 	Send("{Enter}")
-	Sleep(5000)
+	WinWaitActive("Kotwiczka")
+	Sleep(100)
 	MsgBox(0, "Excel info", "Excel jest gotowy do dzialania", 7)
-EndFunc   ;==>Open_Kotwiczka
+	WinActivate("Tworzenie kotwiczki z Darkiem :D")
 
-Func Close_Kotwiczka ()
-WinActivate("Kotwiczka")
-			Send("!{F4}")
-			Sleep(100)
-			Send("{RIGHT}")
-			Send("{Enter}")
-EndFunc
+EndFunc   ;==>Excel_Open
+
+Func Excel_Close()
+
+	WinActivate("Kotwiczka")
+	WinClose("Kotwiczka")
+	Sleep(500)
+	Send("{n}")
+	MsgBox(0, "Excel", "Excel zostal zamkniety", 3)
+	WinActivate("Tworzenie kotwiczki z Darkiem :D")
+
+EndFunc   ;==>Excel_Close
 
 Func Czyszczenie_excela()
+
 	WinActivate("Kotwiczka")
 	Send("^{HOME}")
 	Send("^{z 20}")
 	Send("^{HOME}")
 	Sleep(100)
 	MsgBox(0, "Excel info", "Excel czysty", 0.5)
+	WinActivate("Tworzenie kotwiczki z Darkiem :D")
+
 EndFunc   ;==>Czyszczenie_excela
 
 Func Tworzenie_kotwicy()
 
+	MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Poczekaj, az wyskoczy kolejne okienko. Ok?" & @CRLF & "Jak nic sie nie bedzie dzialo to znaczy," & @CRLF & "ze TY cos ZJ******" & @CRLF & "Wówczas zatrzymaj proces")
 	$pis = $Buton_x ;~ Ilosc kart na obwodówce
-
-	$t1 = (12000 * ((1.0 * $pis))) ;~ t1 - czas ladowania okna znaku wypelniacza dla jednego sygnalu
-
-	$t2 = (7000 * ((0.3 * $pis) + 1)) ;~ t2 - czas ukazywania sie wszystkich wlasciwosci i wlasciwosci strony w oknie znaku wypelniacza po ich zafajkowaniu
-
-	$t3 = (3000 * ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
-
+	;$t1 = (12000 * ((1.0 * $pis))) ;~ t1 - czas ladowania okna znaku wypelniacza dla jednego sygnalu
+	$t2 = (7000 *  ((0.3 * $pis) + 1)) ;~ t2 - czas ukazywania sie wszystkich wlasciwosci i wlasciwosci strony w oknie znaku wypelniacza po ich zafajkowaniu
+	$t3 = (3000 *  ((0.3 * $pis) + 1)) ;~ t3 - czas przenoszenia zmiennych
 	$t4 = (15000 * ((0.6 * $pis) + 1)) ;~ t4 - czas ukazywania sie wszystkich wlasciwosci i wlasciwosci strony w oknie znaku wypelniacza po ich zafajkowaniu
-
 	$tc = 2000 ;~ tc - copy time
-
 	$ta = 1000 ;~ ta - approve time
-
 
 ;~ 1. Skopiowanie nazw pelnych do excela
 	WinActivate("EPLAN Electric P8 2.7")
 	Send("^{a}")
 	Send("!{t}")
 	Send("{o}")
-	Sleep($t1)
+	WinWaitActive("W³aœciwoœci (symbol graficzny)")
+	Sleep($ta)
 	Send("!{p}{o}{w}")
-	Sleep($t2)
+	$x = 0
+	$e1 = WinWait("W³aœciwoœci (symbol graficzny)",1)
+	While $x = 1
+
+		$state_e1 = WinGetState($e1)
+			If BitAND($state_e1, $WIN_STATE_ENABLED) Then
+			$x = 1
+			Else
+			EndIf
+
+	WEnd
+
 	Send("!{k}")
 	Send("{w}")
 	Send("!{k}")
@@ -185,6 +185,7 @@ Func Tworzenie_kotwicy()
 
 ;~ 2. Usuniecie nazw pelnych w excelu
 	WinActivate("Kotwiczka")
+	WinWaitActive("Kotwiczka")
 	Send("^{HOME}")
 	Send("^{v}")
 	Send("+{Enter}")
@@ -196,6 +197,7 @@ Func Tworzenie_kotwicy()
 
 ;~ 3. Umieszczenie nazw wyswietlanych i kopiowanie wlasciwosci
 	WinActivate("W³aœciwoœci (symbol graficzny)")
+	WinWaitActive("W³aœciwoœci (symbol graficzny)")
 	Send("{RIGHT}")
 	Send("{DOWN}")
 	Send("^{v}")
@@ -208,6 +210,7 @@ Func Tworzenie_kotwicy()
 
 ;~ 4. Zamiana Wlasciwosci na prawidlowe w excelu
 	WinActivate("Kotwiczka")
+	WinWaitActive("Kotwiczka")
 	Send("{F5}")
 	Send("{z}")
 	Send("{Enter}")
@@ -221,6 +224,7 @@ Func Tworzenie_kotwicy()
 
 ;~ 5. Stworzenie nowego obiektu wlasciwosci i przypo¿¹dkowanie prawidlowych zmiennych
 	WinActivate("W³aœciwoœci (symbol graficzny)")
+	WinWaitActive("W³aœciwoœci (symbol graficzny)")
 	Send("^+{F10}")
 	Send("{o}")
 	Send("^{v}")
@@ -232,4 +236,8 @@ Func Tworzenie_kotwicy()
 	Send("PREPlANNING")
 	Sleep($ta)
 	Send("{Enter}")
+
+	MsgBox(0, "Tworzenie kotwiczki z Darkiem :D", "Kotwiczka stworzona ( mam nadzieje ;D )", 10)
+	WinActivate("Tworzenie kotwiczki z Darkiem :D")
+
 EndFunc   ;==>Tworzenie_kotwicy
