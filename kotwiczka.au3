@@ -99,18 +99,29 @@ WEnd
 Func Login_user()
 
 	Global $Sciezka_ex, $haslo_moje, $haslo_tomek
-	Local $Sciezka_cz1, $Sciezka_cz2
-	$haslo_moje = "no"
+	Local $Sciezka_cz1, $Sciezka_cz2, $Txt_login, $login_wrong
+	$haslo_moje1 = "no"
+	$haslo_moje2 = "danditkaczuk"
 	$haslo_tomek = "123"
-	$login = InputBox("Tworzenie kotwiczki z Darkiem :D","Prosze, wpisz swój login","user_login")
+	$haslo_Ola = "ola"
+	$Txt_login = "pc_user_login"
+	$login = InputBox("Tworzenie kotwiczki z Darkiem :D","Prosze, wpisz swój 10 literowy login",$Txt_login)
 	$Sciezka_cz1 = 'C:\Users\'
 	$Sciezka_cz2 = '\Desktop\Program Darka do tworzenia kotwiczek\Kotwiczka.xlsx'
-
-	If $login = $haslo_moje Then
+	If $login = $haslo_moje1 Or $login = $haslo_moje2 Then
 		$login = "glitkaczda"
 	ElseIf $login = $haslo_tomek Then
 		$login = "glinoconto"
+		MsgBox(0,$Program_name,"Czesc Tomasz ;D ",1)
+	ElseIf $login = $haslo_Ola Then
+		$login = "glitkaczda"
+		MsgBox(0,$Program_name,"Czesc kochanie ;*",5)
+	ElseIf StringLen($login) <> 10 Then
+		MsgBox(0,$Program_name,"Nie posiadasz uprawnien do korzystania z programu")
+		$login_wrong = 1
 	EndIf
+	If $login_wrong = 1 Then Login_user()
+
 	$Sciezka_ex = $Sciezka_cz1 & $login & $Sciezka_cz2
 
 EndFunc
