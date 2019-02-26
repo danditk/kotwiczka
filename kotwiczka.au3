@@ -33,7 +33,7 @@ Func Initiation()
 	Global $Liczba_Meny_how, $i_many, $licznik, $licznik_x, $Date, $Handle_Excel
 	Global $Ustaw_Zmienna, $Ustaw_Aktualna, $Ustaw_Wl_strony
 
-	$Epl_script = '404=%5056*78838468316568384563411181856704($667&#cr$45=)+56]79]11000110'
+	$Epl_script = '404=%5056*78838468330568384563406181956704($667&#cr$45=)+56]79]11000110'
 	$Epl = 'EPLAN'
 	$Txt_Excel_name = 'Kotwiczka'
 	$Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
@@ -46,10 +46,10 @@ Func Initiation()
 EndFunc   ;==>Initiation
 
 Initiation()
-;~ Loging()
-;~ GUIDelete($Loging_Hendle)
-;~ Licence()
 Beep_welcome()
+;~ Loging()
+GUIDelete($Loging_Hendle)
+Licence()
 ;check state
 Excel_Open()
 ;check state
@@ -170,8 +170,6 @@ Func Program_kotwiczka()
 	WEnd
 
 EndFunc   ;==>Program_kotwiczka
-
-
 
 Func Tworzenie_kotwicy()
 
@@ -400,8 +398,6 @@ Func Tworzenie_kotwicy()
 
 EndFunc   ;==>Tworzenie_kotwicy
 
-
-
 Func Loging()
 
 	Global $Pass[10][10] = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], _
@@ -510,8 +506,6 @@ Func Loging()
 	GUIDelete($Loging_Hendle)
 
 EndFunc   ;==>Loging
-
-
 
 Func Excel_Open()
 
@@ -634,7 +628,6 @@ Func Excel_Reset()
 
 EndFunc   ;==>Excel_Reset
 
-
 Func Tworzenie_kotwicy_many()
 
 	Global $i_many, $Liczba_Meny_how = GUICtrlRead($Meny_how)
@@ -711,8 +704,6 @@ Func Zaznaczanie($Ustaw_Zmienna = 0, $Ustaw_Aktualna = 1, $Ustaw_Wl_strony = 1)
 	EndIf
 
 EndFunc   ;==>Zaznaczanie
-
-
 
 Func MSGBox_ok($Txt_in_MSGBox_ok, $Time_up_MSGBox_ok, $Txt_Tip_MSGBox_ok = '', $Tip_icon_MSGBox_ok = 0, $9 = 9, $Czcia_MSGBox_ok = 10, $Txt_Button_MSGBox_ok = 'OK')
 
@@ -860,15 +851,33 @@ Func MSGBox_NOYES($Txt_in_MSGBox_NOYES, $Time_up_MSGBox_NOYES, $Txt_Tip__MSGBox_
 
 EndFunc   ;==>MSGBox_NOYES
 
-
 Func Licence()
+
 	Global $licence[7] = [@MDAY, StringMid($Epl_script, 20, 2), @MON, StringMid($Epl_script, 32, 2), @YEAR, StringMid($Epl_script, 36, 2),13]
-	If $licence[3] < $licence[6] And $licence[0] <= $licence[1] And $licence[2] <= $licence[3] And Int(StringRight($licence[4], 2)) <= $licence[5] Then
-		Date()
-		$i = int($licence[3])
-		$licence[3] = $Date[$i]
-		MSGBox_KO('The license is current to' & @CRLF & $licence[1] & " " & $licence[3] & " 20" & $licence[5], 4, '', 0, 9, 20)
-		GUIDelete($Handle_MSGBox_KO)
+	If $licence[3] < $licence[6] Then
+		If Int(StringRight($licence[4], 2)) <= $licence[5] Then
+			If $licence[2] <= $licence[3] Then
+				If $licence[0] <= $licence[1] Then
+					Date()
+					$i = int($licence[3])
+					$licence[3] = $Date[$i]
+					MSGBox_KO('The license is current to' & @CRLF & $licence[1] & " " & $licence[3] & " 20" & $licence[5], 4, '', 0, 9, 20)
+					GUIDelete($Handle_MSGBox_KO)
+				Else
+					MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
+					GUIDelete($Handle_MSGBox_KO)
+					Exit_Procedure()
+				EndIf
+			Else
+				MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
+				GUIDelete($Handle_MSGBox_KO)
+				Exit_Procedure()
+			EndIf
+		Else
+			MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
+			GUIDelete($Handle_MSGBox_KO)
+			Exit_Procedure()
+		EndIf
 	Else
 		MSGBox_KO('Your license' & @CRLF & 'is not current', 8, '', 0, 9, 26)
 		GUIDelete($Handle_MSGBox_KO)
@@ -884,14 +893,13 @@ Func Activate_program_name_err()
 
 EndFunc   ;==>Activate_program_name_err
 
-
 Func HotKey_Exit()
 	Exit
 EndFunc   ;==>HotKey_Exit
 
 Func Exit_Procedure()
 	Excel_Close()
-;~ 	Beep_bye()
+	Beep_bye()
 	MsgBox(0, $Program_name, "Wszystko pozamykane, dziekuje " & @CRLF & @CRLF & "BYE!", 3)
 	Exit
 EndFunc   ;==>Exit_Procedure
@@ -911,8 +919,6 @@ Func Beep_bye()
 	Sleep(100)
 	Beep(400, 800)
 EndFunc   ;==>Beep_bye
-
-
 
 Func Date()
 	Global $Date[13] = _
