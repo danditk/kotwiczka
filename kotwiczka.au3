@@ -157,18 +157,7 @@ Func Tworzenie_kotwicy()
 	WinWaitActive("W³aœciwoœci (symbol graficzny)")
 	Sleep($ta)
 	Send("!{p}{o}{w}")
-	$x = 0
-	$e1 = WinWait("W³aœciwoœci (symbol graficzny)",1)
-	While $x = 1
-
-		$state_e1 = WinGetState($e1)
-			If BitAND($state_e1, $WIN_STATE_ENABLED) Then
-			$x = 1
-			Else
-			EndIf
-
-	WEnd
-
+	Sleep($t4)
 	Send("!{k}")
 	Send("{w}")
 	Send("!{k}")
