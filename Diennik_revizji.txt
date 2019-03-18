@@ -1,21 +1,21 @@
-1.1 - Usuniêcie powtarzalnych poleceñ ze switch case i utworzenie nowych funkcji wykonuj¹cych te polecania. Polepszenie dzia³ania funkcji Tworzenie kotwicy ().
-1.2 - Zmiana pentli while czekaj¹cej na okno na polecenie czekaj¹ce na aktywacje tego okna. Stworzenie nowych globalnych zmiennych tekstowych, które siê powtarzaj¹. Dodanie nowych warunków, które weryfikuj¹ wczeœniej podjête zadania. Dodanie wielu komentarzy do kodu.
-1.3 - Ma³e zmiany w zmiennych
-1.4 - Dodanie nowych globalnych zmiennych, zmiana literówki buton - button w switch case, wydzielenie aktywacji progeamu kotwica jako oddzielna finkcjê.
+1.1 - UsuniÄ™cie powtarzalnych poleceÅ„ ze switch case i utworzenie nowych funkcji wykonujÄ…cych te polecania. Polepszenie dziaÅ‚ania funkcji Tworzenie kotwicy ().
+1.2 - Zmiana pentli while czekajÄ…cej na okno na polecenie czekajÄ…ce na aktywacje tego okna. Stworzenie nowych globalnych zmiennych tekstowych, ktÃ³re siÄ™ powtarzajÄ…. Dodanie nowych warunkÃ³w, ktÃ³re weryfikujÄ… wczeÅ›niej podjÄ™te zadania. Dodanie wielu komentarzy do kodu.
+1.3 - MaÅ‚e zmiany w zmiennych
+1.4 - Dodanie nowych globalnych zmiennych, zmiana literÃ³wki buton - button w switch case, wydzielenie aktywacji progeamu kotwica jako oddzielna finkcjÄ™.
 1.5 - Dodanie pierwszej wersji interface'u logowania
-1.6 - Dodanie nowych urzytkowników do mo¿liwoœci zalogowania i korzystania z programu
-1.7 - Utworzenie mo¿liwoœci wyjœcia z programu przy braku loginu i has³a
-1.8 - Tworzenie kotwiczki() - Zmiana diley'a na pêtle z odczytaniem stanu przycisku
-1.9 - Otwieranie excela() - Zmiana metody w³¹czania arkusza Kotwiczka, delay przy zaznaczaniu strony, wyci¹gniecie z petli wszystkich kategorii i w³o¿enie ich do osobnej
-2.0 - () - Podmiana 'kotwiczki' na zmienn¹, hotkey: e - 'esceape', AutoItSetOption(MouseCoordMode) for mouse click by window x y 
+1.6 - Dodanie nowych urzytkownikÃ³w do moÅ¼liwoÅ›ci zalogowania i korzystania z programu
+1.7 - Utworzenie moÅ¼liwoÅ›ci wyjÅ›cia z programu przy braku loginu i hasÅ‚a
+1.8 - Tworzenie kotwiczki() - Zmiana diley'a na pÄ™tle z odczytaniem stanu przycisku
+1.9 - Otwieranie excela() - Zmiana metody wÅ‚Ä…czania arkusza Kotwiczka, delay przy zaznaczaniu strony, wyciÄ…gniecie z petli wszystkich kategorii i wÅ‚oÅ¼enie ich do osobnej
+2.0 - () - Podmiana 'kotwiczki' na zmiennÄ…, hotkey: e - 'esceape', AutoItSetOption(MouseCoordMode) for mouse click by window x y 
 2.1 - () - ControlSend / ControlSetText
-2.2 - () - Zmiana po³o¿enia i rozmiaru okien WinMovie / WinGetOnTop
+2.2 - () - Zmiana poÅ‚oÅ¼enia i rozmiaru okien WinMovie / WinGetOnTop
 Caution! - Program working only if E-PLAN is open in thesame screen, and main screen is visible on the screen center!
 
-2.3 - () - Nadanie przezroczystoœci WinSetTrans	
+2.3 - () - Nadanie przezroczystoÅ›ci WinSetTrans	
 2.4 - () - Zmiana hotkey na +!e, new GUI design, new tools
-2.5 - () - Opis do przyciskow, inkrementacja i dekrementacja pola wpisywania cyfry, usuniecie zbednych hotkeyów, usuniecie zbednych funkcji, sprawdzenie czy excel nie jest otwarty przy starcie programu, usuniecie Button_x, Dluzsze czasy kopiowania i wklejania, ulepszenie funkcji resetu excela.
-2.6 - () - Programowanie przycisku Check_reset, Zmiana kolejnoœci pierwsze zaznaczenie przed animacja.
+2.5 - () - Opis do przyciskow, inkrementacja i dekrementacja pola wpisywania cyfry, usuniecie zbednych hotkeyÃ³w, usuniecie zbednych funkcji, sprawdzenie czy excel nie jest otwarty przy starcie programu, usuniecie Button_x, Dluzsze czasy kopiowania i wklejania, ulepszenie funkcji resetu excela.
+2.6 - () - Programowanie przycisku Check_reset, Zmiana kolejnoÅ›ci pierwsze zaznaczenie przed animacja.
 2.7 - () - Programowanie przycisku Check_Speed & Check_Exit
 2.8 - () - Programowanie przycisku Wykonaj dla wielu
 2.9 - Loging() - Wersja beta z logowaniem - zmiany w strukturze programu, wywalenie starego logowania i wiele innych
@@ -23,35 +23,36 @@ Caution! - Program working only if E-PLAN is open in thesame screen, and main sc
 3.1 - (), Zaznaczanie() - Usuniecie problemu z zatrzymaniem skryptu po otwarciu Excela - pozycja EPLAN nie byla 
 zadeklarowana, zmiana zmiennej kategoria z ComboBox na 1006
 3.2 - Zaznaczanie() - Upgread funkcji, wpisujemy zmienne w nawias
-4.1 - Licence() - Funkcja by³a Ÿle napisana (and and and) - zmiana na kilka instrukcji warunkowych (If Then), Przeniesienie Beep()
+4.1 - Licence() - Funkcja byÅ‚a Åºle napisana (and and and) - zmiana na kilka instrukcji warunkowych (If Then), Przeniesienie Beep()
 4.2 - Licence() - Not working on 4.1 way - back to 4.1 and add || to if, now licence is working fine.
 4.3 - Loging() - Return to Loging() 3.1
 4.4 - Tworzenie_kotwicy() - change position of initial mouse click
+4.5 - Tworzenie_kotwicy() - change class of control click which opening kotwiczka window
 
 GUISetHelp ( "pomoc" [, uchwyt] )
 Opisy dla przyciskow:
 Shift + D - 	W przypadku potrzeby przerwania dzialania programu wcisnij kombinacje klawiszy.
-Speed mode - 	Stosuje siê do rêcznego potwierdzania otwarcia okna kotwiczki. W przypadku obwodowek typi auma zaleca sie uzycie tej funkcji ze wzgledu dlugi czas oczekiwania na okno kotwiczki. W innych przypadkach mo¿na pomin¹æ czas przewidziany na otwieranie okna kotwiczki.
-Start - 	W niektorych sytuacjach, kiedy przy kursorze pojawi siê wskaŸnik myszy zaznacz obszar dla obiektu znaku wypelniacza.
+Speed mode - 	Stosuje siÄ™ do rÄ™cznego potwierdzania otwarcia okna kotwiczki. W przypadku obwodowek typi auma zaleca sie uzycie tej funkcji ze wzgledu dlugi czas oczekiwania na okno kotwiczki. W innych przypadkach moÅ¼na pominÄ…Ä‡ czas przewidziany na otwieranie okna kotwiczki.
+Start - 	W niektorych sytuacjach, kiedy przy kursorze pojawi siÄ™ wskaÅºnik myszy zaznacz obszar dla obiektu znaku wypelniacza.
 Exit after - 	Kiedy chcesz zamknac program po stworzeniu kotwiczki.
 Login- 		Insert U'r 10 letter login please
 
 Programists notes:
 
 MSGBox_ok($Txt_in_MSGBox_ok, $Time_up_MSGBox_ok, $Tip_MSGBox_ok, $Tip_icon_MSGBox_ok, $9 = 9, $Txt_Button_MSGBox_ok = 'OK', $Czcia_MSGBox_ok = 10)
-GUICtrlSetTip ( ID_kontrolki, "tekst" [, "tytu³" [, ikona [, opcja]]]]] )
+GUICtrlSetTip ( ID_kontrolki, "tekst" [, "tytuÅ‚" [, ikona [, opcja]]]]] )
 
-ID_kontrolki - numer identyfikacyjny (ID) kontrolki, domyœlnie kontrolka bie¿¹ca.
+ID_kontrolki - numer identyfikacyjny (ID) kontrolki, domyÅ›lnie kontrolka bieÅ¼Ä…ca.
 
 "tekst" - tekst na etykietce
 
-"tytu³" - tytu³ etykietki (domyœlnie brak tytu³u)
+"tytuÅ‚" - tytuÅ‚ etykietki (domyÅ›lnie brak tytuÅ‚u)
 
-ikona - rodzaj ikony na etykietce, 0 - bez ikony (domyœlne), 1 - informacja, 2 - ostrze¿enie, 3 - b³¹d
+ikona - rodzaj ikony na etykietce, 0 - bez ikony (domyÅ›lne), 1 - informacja, 2 - ostrzeÅ¼enie, 3 - bÅ‚Ä…d
 
-opcja - 1 - dymek z ogonkiem na boku , 3 - dymek z ogonkiem na œrodku (domyœlnie prostok¹t)
+opcja - 1 - dymek z ogonkiem na boku , 3 - dymek z ogonkiem na Å›rodku (domyÅ›lnie prostokÄ…t)
 
 4.3 uwaga licencyjna - 20.31.36 znak -> licence current to 19.06
 
-Mo¿na utworzyæ kotwiczkê w trybie manual
-Dodaæ MSGbosy doreszty komunikatów
+MoÅ¼na utworzyÄ‡ kotwiczkÄ™ w trybie manual
+DodaÄ‡ MSGbosy doreszty komunikatÃ³w
