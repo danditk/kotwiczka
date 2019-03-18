@@ -37,7 +37,7 @@ Func Initiation()
 	$Epl = 'EPLAN'
 	$Txt_Excel_name = 'Kotwiczka'
 	$Ask_ex_open = 'Czy chcesz otworzyc Excel - ' & $Txt_Excel_name & '?'
-	$Epl_okno_kotwiczki = "W³aœciwoœci (symbol graficzny)"
+	$Epl_okno_kotwiczki = "WÂ³aÅ“ciwoÅ“ci (symbol graficzny)"
 	$Txt_ex_close = 'Excel - ' & $Txt_Excel_name & ' nie jest otwarty.'
 	$Epl_poz = WinGetPos($Epl)
 	HotKeySet('+!e', 'HotKey_Exit')
@@ -194,8 +194,8 @@ Func Tworzenie_kotwicy()
 			Sleep(500)
 			ControlSend($Epl, '', "[CLASSNN:AfxFrameOrView140u1]", '^{a}')
 			Sleep(500)
-			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '!{t}')
-			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010007:0000000000000010:000000000000000015', '{o}')
+			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010003:0000000000000010:000000000000000015', '!{t}')
+			ControlSend($Epl, '', 'Afx:0000000140000000:8:0000000000010003:0000000000000010:000000000000000015', '{o}')
 			If GUICtrlRead($Check_Speed) = 1 Then MsgBox(0, $Program_name, 'Kliknij "OK" po ukazaniu sie okienka kotwiczki, by przyspieszyc 3 minutowe odliczanie.', 180)
 			WinWait($Epl_okno_kotwiczki, '', 20)
 			$Handle_Excel = WinGetHandle($Txt_Excel_name)
@@ -330,7 +330,7 @@ Func Tworzenie_kotwicy()
 				Sleep($tc)
 				WinSetState($Txt_Excel_name, '', @SW_HIDE)
 
-				;5. Stworzenie nowego obiektu wlasciwosci i przypo¿¹dkowanie prawidlowych zmiennych
+				;5. Stworzenie nowego obiektu wlasciwosci i przypoÂ¿Â¹dkowanie prawidlowych zmiennych
 				WinActivate($Epl_okno_kotwiczki)
 				WinWaitActive($Epl_okno_kotwiczki)
 				Send("^+{F10}")
@@ -603,7 +603,7 @@ Func Excel_Do_Reset()
 				WinActivate($Txt_Excel_name)
 				Do
 					Sleep(10000)
-					$Do_ex_show_yet = MSGBox_NOYES('Chcesz juz wrócic do programu: ' & $Program_name & '?', 10, 'Jesli nie klikniesz "TAK" komunikat pojawi sie ponownie za 10 sec', 1, 10)
+					$Do_ex_show_yet = MSGBox_NOYES('Chcesz juz wrÃ³cic do programu: ' & $Program_name & '?', 10, 'Jesli nie klikniesz "TAK" komunikat pojawi sie ponownie za 10 sec', 1, 10)
 					GUIDelete($Handle_MSGBox_NOYES)
 				Until $Do_ex_show_yet = 1
 				If WinExists($Epl) Then WinMove($Txt_Excel_name, '', $Epl_poz[0] + 50, $Epl_poz[1] + 100, 0, 0)
