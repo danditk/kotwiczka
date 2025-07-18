@@ -1,5 +1,7 @@
 # kotwiczka
 
+You can see it here: https://youtu.be/vuujXPyLhUQ?si=j08U-44iOXc6Ts3X
+
 When we ask a question - Is it possible at all? We're trying to find answers. Next time we do not ask - is it possible ?, but - how to do it? Our brain switches to a different, better path.
 Initially, I was programming arduino projects as a hobby, it was really cool. During my studies I was programming in C #, the exercises were not great. The fun started when I started to make examples from the book - "Introduction to programming in C #" by Anna Kempa, Tomasz Staś. Maybe someday I'll come back to arduino in C and projects in C #, but one day if time allows me to go this way.
 So I wrote my first really useful program, which was the beginning of my true passion for programming.
